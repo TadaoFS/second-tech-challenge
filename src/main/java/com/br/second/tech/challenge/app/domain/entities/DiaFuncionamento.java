@@ -88,5 +88,4 @@ public class DiaFuncionamento {
     public void setRestaurante(Restaurante restaurante) {
         this.restaurante = restaurante;
     }
-
 }

@@ -2,7 +2,6 @@ package com.br.second.tech.challenge.app.domain.entities;
 
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -96,5 +95,4 @@ public class Cardapio {
     public void setRestaurante(Restaurante restaurante) {
         this.restaurante = restaurante;
     }
-
 }
