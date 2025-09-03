@@ -1,6 +1,6 @@
-package com.br.second.tech.challenge.app.entities;
+package com.br.second.tech.challenge.app.domain.entities;
 
-import com.br.second.tech.challenge.app.enums.Dias;
+import com.br.second.tech.challenge.app.domain.enums.Dias;
 
 import java.time.LocalDateTime;
 

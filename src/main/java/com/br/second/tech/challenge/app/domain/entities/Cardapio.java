@@ -1,4 +1,4 @@
-package com.br.second.tech.challenge.app.entities;
+package com.br.second.tech.challenge.app.domain.entities;
 
 import java.time.LocalDateTime;
 import java.util.List;
