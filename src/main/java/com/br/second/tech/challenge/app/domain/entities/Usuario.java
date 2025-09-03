@@ -1,4 +1,4 @@
-package com.br.second.tech.challenge.app.entities;
+package com.br.second.tech.challenge.app.domain.entities;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +15,7 @@ public class Usuario {
     private LocalDateTime dataAtualizacao;
     private Endereco endereco;
     private TipoUsuario tipoUsuario;
+    private Restaurante restaurante;
 
     public Usuario() {
     }

@@ -1,22 +1,45 @@
-package com.br.second.tech.challenge.app.entities;
+package com.br.second.tech.challenge.app.domain.entities;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Entity
+@Table(name = "Restaurante")
 public class Restaurante {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
+
+    private String tipoCozinha;
+
     private LocalDateTime dataCriacao;
+
     private LocalDateTime dataAtualizacao;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "restaurante", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<DiaFuncionamento> diasFuncionamento;
-    private Usuario usuario; // Dono do restaurante
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Usuario usuario;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "restaurante", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Cardapio> cardapios;
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
 
-    public Restaurante(Long id, String nome, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao, List<DiaFuncionamento> diasFuncionamento, Usuario usuario, List<Cardapio> cardapios, Endereco endereco) {
+    public Restaurante(Long id, String nome, String tipoCozinha, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao, List<DiaFuncionamento> diasFuncionamento, Usuario usuario, List<Cardapio> cardapios, Endereco endereco) {
         this.id = id;
         this.nome = nome;
+        this.tipoCozinha = tipoCozinha;
         this.dataCriacao = dataCriacao;
         this.dataAtualizacao = dataAtualizacao;
         this.diasFuncionamento = diasFuncionamento;
@@ -42,6 +65,14 @@ public class Restaurante {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getTipoCozinha() {
+        return tipoCozinha;
+    }
+
+    public void setTipoCozinha(String tipoCozinha) {
+        this.tipoCozinha = tipoCozinha;
     }
 
     public LocalDateTime getDataCriacao() {

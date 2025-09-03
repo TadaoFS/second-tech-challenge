@@ -1,6 +1,8 @@
-package com.br.second.tech.challenge.app.entities;
+package com.br.second.tech.challenge.app.domain.entities;
 
-import com.br.second.tech.challenge.app.enums.Dias;
+import com.br.second.tech.challenge.app.domain.enums.Dias;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDateTime;
 
@@ -12,14 +14,18 @@ public class DiaFuncionamento {
     private Integer horarioFechamento; // Formato 24 horas, ex: 1300 para 13:00
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
+    @ManyToOne
+    @JoinColumn(name = "restaurante_id", nullable = false)
+    private Restaurante restaurante;
 
-    public DiaFuncionamento(Long id, Dias dia, Integer horarioAbertura, Integer horarioFechamento, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao) {
+    public DiaFuncionamento(Long id, Dias dia, Integer horarioAbertura, Integer horarioFechamento, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao, Restaurante restaurante) {
         this.id = id;
         this.dia = dia;
         this.horarioAbertura = horarioAbertura;
         this.horarioFechamento = horarioFechamento;
         this.dataCriacao = dataCriacao;
         this.dataAtualizacao = dataAtualizacao;
+        this.restaurante = restaurante;
     }
 
     public DiaFuncionamento() {
@@ -73,6 +79,14 @@ public class DiaFuncionamento {
 
     public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public Restaurante getRestaurante() {
+        return restaurante;
+    }
+
+    public void setRestaurante(Restaurante restaurante) {
+        this.restaurante = restaurante;
     }
 
 }
