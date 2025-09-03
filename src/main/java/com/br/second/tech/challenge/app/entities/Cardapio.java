@@ -11,12 +11,12 @@ public class Cardapio {
     private String modalidade; // Presencial ou Delivery
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
-    private List<Pratos> pratos;
+    private List<Prato> pratos;
 
     public Cardapio() {
     }
 
-    public Cardapio(Long id, String nome, String descricao, String modalidade, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao, List<Pratos> pratos) {
+    public Cardapio(Long id, String nome, String descricao, String modalidade, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao, List<Prato> pratos) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -74,11 +74,11 @@ public class Cardapio {
         this.dataAtualizacao = dataAtualizacao;
     }
 
-    public List<Pratos> getPratos() {
+    public List<Prato> getPratos() {
         return pratos;
     }
 
-    public void setPratos(List<Pratos> pratos) {
+    public void setPratos(List<Prato> pratos) {
         this.pratos = pratos;
     }
 

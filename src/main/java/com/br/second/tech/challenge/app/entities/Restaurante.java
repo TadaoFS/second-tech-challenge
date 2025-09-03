@@ -7,27 +7,25 @@ public class Restaurante {
 
     private Long id;
     private String nome;
-    private Integer horarioAbertura; // Formato 24 horas, ex: 1300 para 13:00
-    private Integer horarioFechamento; // Formato 24 horas, ex: 1300 para 13:00
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
+    private List<DiaFuncionamento> diasFuncionamento;
     private Usuario usuario; // Dono do restaurante
     private List<Cardapio> cardapios;
     private Endereco endereco;
 
-    public Restaurante() {
-    }
-
-    public Restaurante(Long id, String nome, Integer horarioAbertura, Integer horarioFechamento, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao, Usuario usuario, List<Cardapio> cardapios, Endereco endereco) {
+    public Restaurante(Long id, String nome, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao, List<DiaFuncionamento> diasFuncionamento, Usuario usuario, List<Cardapio> cardapios, Endereco endereco) {
         this.id = id;
         this.nome = nome;
-        this.horarioAbertura = horarioAbertura;
-        this.horarioFechamento = horarioFechamento;
         this.dataCriacao = dataCriacao;
         this.dataAtualizacao = dataAtualizacao;
+        this.diasFuncionamento = diasFuncionamento;
         this.usuario = usuario;
         this.cardapios = cardapios;
         this.endereco = endereco;
+    }
+
+    public Restaurante() {
     }
 
     public Long getId() {
@@ -46,38 +44,28 @@ public class Restaurante {
         this.nome = nome;
     }
 
-    public String gethorarioAbertura() {
-        return this.horarioAbertura.toString().substring(0,2).concat(":").
-                concat(this.horarioAbertura.toString().substring(0, 2));
-    }
-
-    public void sethorarioAbertura(Integer horarioAbertura) {
-        this.horarioAbertura = horarioAbertura;
-    }
-
-    public String gethorarioFechamento() {
-        return this.horarioFechamento.toString().substring(0,2).concat(":").
-                concat(this.horarioFechamento.toString().substring(0, 2));
-    }
-
-    public void sethorarioFechamento(Integer horarioFechamento) {
-        this.horarioFechamento = horarioFechamento;
-    }
-
-    public LocalDateTime getdataCriacao() {
+    public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setdataCriacao(LocalDateTime dataCriacao) {
+    public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
-    public LocalDateTime getdataAtualizacao() {
+    public LocalDateTime getDataAtualizacao() {
         return dataAtualizacao;
     }
 
-    public void setdataAtualizacao(LocalDateTime dataAtualizacao) {
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public List<DiaFuncionamento> getDiasFuncionamento() {
+        return diasFuncionamento;
+    }
+
+    public void setDiasFuncionamento(List<DiaFuncionamento> diasFuncionamento) {
+        this.diasFuncionamento = diasFuncionamento;
     }
 
     public Usuario getUsuario() {
@@ -103,6 +91,5 @@ public class Restaurante {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-
 
 }

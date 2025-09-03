@@ -2,7 +2,7 @@ package com.br.second.tech.challenge.app.entities;
 
 import java.time.LocalDateTime;
 
-public class Pratos {
+public class Prato {
 
     private Long id;
     private String nome;
@@ -12,7 +12,7 @@ public class Pratos {
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
 
-    public Pratos(Long id, String nome, String descricao, Double preco, String urlFoto, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao) {
+    public Prato(Long id, String nome, String descricao, Double preco, String urlFoto, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -22,7 +22,7 @@ public class Pratos {
         this.dataAtualizacao = dataAtualizacao;
     }
 
-    public Pratos() {
+    public Prato() {
     }
 
     public Long getId() {
