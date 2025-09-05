@@ -15,6 +15,7 @@ public class Usuario {
     private LocalDateTime dataAtualizacao;
     private Endereco endereco;
     private TipoUsuario tipoUsuario;
+    private Restaurante restaurante;
 
     public Usuario() {
     }

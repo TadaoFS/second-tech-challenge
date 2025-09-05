@@ -1,5 +1,7 @@
 package com.br.second.tech.challenge.app.domain.entities;
 
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,11 +14,14 @@ public class Cardapio {
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
     private List<Prato> pratos;
+    @ManyToOne
+    @JoinColumn(name = "restaurante_id", nullable = false)
+    private Restaurante restaurante;
 
     public Cardapio() {
     }
 
-    public Cardapio(Long id, String nome, String descricao, String modalidade, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao, List<Prato> pratos) {
+    public Cardapio(Long id, String nome, String descricao, String modalidade, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao, List<Prato> pratos, Restaurante restaurante) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -24,6 +29,7 @@ public class Cardapio {
         this.dataCriacao = dataCriacao;
         this.dataAtualizacao = dataAtualizacao;
         this.pratos = pratos;
+        this.restaurante = restaurante;
     }
 
     public Long getId() {
@@ -82,4 +88,11 @@ public class Cardapio {
         this.pratos = pratos;
     }
 
+    public Restaurante getRestaurante() {
+        return restaurante;
+    }
+
+    public void setRestaurante(Restaurante restaurante) {
+        this.restaurante = restaurante;
+    }
 }
