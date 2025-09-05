@@ -12,8 +12,6 @@ public record RestauranteDTO(
         Long id,
         String nome,
         String tipoCozinha,
-        LocalDateTime dataCriacao,
-        LocalDateTime dataAtualizacao,
         List<DiaFuncionamento> diasFuncionamento, //TODO: Alterar para DiaFuncionamentoDTO
         Usuario usuario,
         List<Cardapio> cardapios, //TODO: Alterar para CardapioDTO

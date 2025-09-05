@@ -30,8 +30,6 @@ public class RestauranteMapper {
                 entity.getId(),
                 entity.getNome(),
                 entity.getTipoCozinha(),
-                entity.getDataCriacao(),
-                entity.getDataAtualizacao(),
                 entity.getDiasFuncionamento(),
                 entity.getUsuario(),
                 entity.getCardapios(),

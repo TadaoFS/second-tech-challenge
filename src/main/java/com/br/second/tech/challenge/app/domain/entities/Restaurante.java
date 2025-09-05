@@ -14,19 +14,24 @@ public class Restaurante {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nome;
 
+    @Column(nullable = false)
     private String tipoCozinha;
 
+    @Column(nullable = false)
     private LocalDateTime dataCriacao;
 
+    @Column(nullable = false)
     private LocalDateTime dataAtualizacao;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "restaurante", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<DiaFuncionamento> diasFuncionamento;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
+    @Column(nullable = false)
     private Usuario usuario;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -34,6 +39,7 @@ public class Restaurante {
     private List<Cardapio> cardapios;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @Column(nullable = false)
     private Endereco endereco;
 
     public Restaurante(Long id, String nome, String tipoCozinha, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao, List<DiaFuncionamento> diasFuncionamento, Usuario usuario, List<Cardapio> cardapios, Endereco endereco) {
