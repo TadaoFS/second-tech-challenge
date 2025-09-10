@@ -1,4 +1,4 @@
-package com.br.second.tech.challenge.app.domain.enums;
+package com.br.second.tech.challenge.core.enums;
 
 public enum Dias {
     SEGUNDA,
