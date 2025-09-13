@@ -1,8 +1,8 @@
-package com.br.second.tech.challenge.app.controller;
+package com.br.second.tech.challenge.infra.controller;
 
 import com.br.second.tech.challenge.app.dto.RestauranteDTO;
 import com.br.second.tech.challenge.app.mapper.RestauranteMapper;
-import com.br.second.tech.challenge.app.usecase.RestauranteUseCase;
+import com.br.second.tech.challenge.core.usecase.RestauranteUseCase;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
