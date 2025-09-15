@@ -1,7 +1,8 @@
 package com.br.second.tech.challenge.infra.controller.mapper;
 
+import com.br.second.tech.challenge.infra.controller.dto.RestauranteDTO;
 import com.br.second.tech.challenge.infra.database.entity.RestauranteEntity;
-import com.br.second.tech.challenge.app.dto.RestauranteDTO;
+
 
 public class RestauranteMapper {
 
@@ -14,8 +15,8 @@ public class RestauranteMapper {
         restauranteEntity.setId(dto.id());
         restauranteEntity.setNome(dto.nome());
         restauranteEntity.setTipoCozinha(dto.tipoCozinha());
-        restauranteEntity.setEndereco(dto.endereco());
-        restauranteEntity.setCardapios(dto.cardapioEntities());
+        restauranteEntity.setEnderecoEntity(dto.enderecoEntity());
+        restauranteEntity.setCardapioEntities(dto.cardapioEntities());
         restauranteEntity.setDiasFuncionamento(dto.diasFuncionamento());
         restauranteEntity.setUsuario(dto.usuario());
 
@@ -30,12 +31,10 @@ public class RestauranteMapper {
                 entity.getId(),
                 entity.getNome(),
                 entity.getTipoCozinha(),
-                entity.getDataCriacao(),
-                entity.getDataAtualizacao(),
                 entity.getDiasFuncionamento(),
                 entity.getUsuario(),
-                entity.getCardapios(),
-                entity.getEndereco()
+                entity.getCardapioEntities(),
+                entity.getEnderecoEntity()
         );
     }
 }
