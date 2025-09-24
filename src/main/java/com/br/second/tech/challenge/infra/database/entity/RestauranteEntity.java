@@ -26,27 +26,26 @@ public class RestauranteEntity {
     @Column(nullable = false)
     private LocalDateTime dataAtualizacao;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "restaurante", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<DiaFuncionamentoEntity> diasFuncionamento;
+    @OneToOne(cascade = CascadeType.ALL)
+    private SemanaFuncionamentoEntity semanaFuncionamento;
 
     @OneToOne(cascade = CascadeType.ALL)
     private UsuarioEntity usuario;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "restauranteEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CardapioEntity> cardapioEntities;
 
     @OneToOne(cascade = CascadeType.ALL)
     private EnderecoEntity enderecoEntity;
 
-    public RestauranteEntity(Long id, String nome, String tipoCozinha, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao, List<DiaFuncionamentoEntity> diasFuncionamento, UsuarioEntity usuario, List<CardapioEntity> cardapioEntities, EnderecoEntity enderecoEntity) {
+    public RestauranteEntity(Long id, String nome, String tipoCozinha, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao, SemanaFuncionamentoEntity semanaFuncionamento, UsuarioEntity usuario, List<CardapioEntity> cardapioEntities, EnderecoEntity enderecoEntity) {
         this.id = id;
         this.nome = nome;
         this.tipoCozinha = tipoCozinha;
         this.dataCriacao = dataCriacao;
         this.dataAtualizacao = dataAtualizacao;
-        this.diasFuncionamento = diasFuncionamento;
+        this.semanaFuncionamento = semanaFuncionamento;
         this.usuario = usuario;
         this.cardapioEntities = cardapioEntities;
         this.enderecoEntity = enderecoEntity;
@@ -95,12 +94,12 @@ public class RestauranteEntity {
         this.dataAtualizacao = dataAtualizacao;
     }
 
-    public List<DiaFuncionamentoEntity> getDiasFuncionamento() {
-        return diasFuncionamento;
+    public SemanaFuncionamentoEntity getSemanaFuncionamento() {
+        return semanaFuncionamento;
     }
 
-    public void setDiasFuncionamento(List<DiaFuncionamentoEntity> diasFuncionamento) {
-        this.diasFuncionamento = diasFuncionamento;
+    public void setSemanaFuncionamento(SemanaFuncionamentoEntity semanaFuncionamento) {
+        this.semanaFuncionamento = semanaFuncionamento;
     }
 
     public UsuarioEntity getUsuario() {

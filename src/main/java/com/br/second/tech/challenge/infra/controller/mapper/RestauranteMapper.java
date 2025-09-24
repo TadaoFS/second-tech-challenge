@@ -2,9 +2,18 @@ package com.br.second.tech.challenge.infra.controller.mapper;
 
 import com.br.second.tech.challenge.infra.controller.dto.RestauranteDTO;
 import com.br.second.tech.challenge.infra.database.entity.RestauranteEntity;
+import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 
+@Component
 public class RestauranteMapper {
+
+    SemanaFuncionamentoMapper semanaFuncionamentoMapper;
+
+    public RestauranteMapper(SemanaFuncionamentoMapper semanaFuncionamentoMapper) {
+        this.semanaFuncionamentoMapper = semanaFuncionamentoMapper;
+    }
 
     public RestauranteEntity toEntity(RestauranteDTO dto) {
         if (dto == null) {
@@ -17,8 +26,9 @@ public class RestauranteMapper {
         restauranteEntity.setTipoCozinha(dto.tipoCozinha());
         restauranteEntity.setEnderecoEntity(dto.enderecoEntity());
         restauranteEntity.setCardapioEntities(dto.cardapioEntities());
-        restauranteEntity.setDiasFuncionamento(dto.diasFuncionamento());
+        restauranteEntity.setSemanaFuncionamento(semanaFuncionamentoMapper.toEntity(dto.semanaFuncionamento()));
         restauranteEntity.setUsuario(dto.usuario());
+        restauranteEntity.setDataAtualizacao(LocalDateTime.now());
 
         return restauranteEntity;
     }
@@ -31,7 +41,7 @@ public class RestauranteMapper {
                 entity.getId(),
                 entity.getNome(),
                 entity.getTipoCozinha(),
-                entity.getDiasFuncionamento(),
+                semanaFuncionamentoMapper.toDTO(entity.getSemanaFuncionamento()),
                 entity.getUsuario(),
                 entity.getCardapioEntities(),
                 entity.getEnderecoEntity()
