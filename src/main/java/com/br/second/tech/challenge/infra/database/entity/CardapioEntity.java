@@ -23,8 +23,9 @@ public class CardapioEntity {
     private String modalidade;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PratoEntity> pratos;
-    @ManyToOne
-    @JoinColumn(name = "restaurante_id", nullable = false)
-    private RestauranteEntity restauranteEntity;
+//    @ManyToOne
+//    @JoinColumn(name = "restaurante_id", nullable = false)
+//    private RestauranteEntity restauranteEntity;
 }

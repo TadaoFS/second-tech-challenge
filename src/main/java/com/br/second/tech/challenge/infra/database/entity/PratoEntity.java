@@ -23,4 +23,7 @@ public class PratoEntity {
     private String urlFoto;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
+//    @ManyToOne
+//    @JoinColumn(name = "cardapio_id", nullable = false)
+//    private CardapioEntity cardapioEntity;
 }

@@ -23,7 +23,7 @@ class RestauranteEntityTest {
         LocalDateTime now = LocalDateTime.now();
         entity.setDataCriacao(now);
         entity.setDataAtualizacao(now);
-        entity.setDiasFuncionamento(Collections.emptyList());
+        entity.setSemanaFuncionamento(new SemanaFuncionamentoEntity());
         UsuarioEntity usuario = new UsuarioEntity();
         entity.setUsuario(usuario);
         entity.setCardapioEntities(Collections.emptyList());
@@ -35,7 +35,7 @@ class RestauranteEntityTest {
         assertEquals("Italiana", entity.getTipoCozinha());
         assertEquals(now, entity.getDataCriacao());
         assertEquals(now, entity.getDataAtualizacao());
-        assertNotNull(entity.getDiasFuncionamento());
+        assertNotNull(entity.getSemanaFuncionamento());
         assertEquals(usuario, entity.getUsuario());
         assertNotNull(entity.getCardapioEntities());
         assertEquals(endereco, entity.getEnderecoEntity());
