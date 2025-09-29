@@ -1,0 +1,15 @@
+services:
+  second-tech-challenge-app:
+    build: .
+    container_name: "second-tech-challenge-app"
+    ports:
+      - "8080:8080"
+  postgres-db:
+    image: postgres:latest
+    container_name: "postgres-db"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: tech_challenge
+      POSTGRES_USER: tech
+      POSTGRES_PASSWORD: challenge
