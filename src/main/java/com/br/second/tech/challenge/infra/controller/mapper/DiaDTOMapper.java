@@ -1,18 +1,17 @@
 package com.br.second.tech.challenge.infra.controller.mapper;
 
+import com.br.second.tech.challenge.core.domain.Dia;
 import com.br.second.tech.challenge.infra.controller.dto.DiaDTO;
-import com.br.second.tech.challenge.infra.database.entity.DiaEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
-public class DiaMapper {
+public class DiaDTOMapper {
 
-    public DiaEntity toEntity(DiaDTO dto) {
+    public Dia toDomain(DiaDTO dto) {
         if (dto == null) {
             return null;
         }
-        DiaEntity dia = new DiaEntity();
+        Dia dia = new Dia();
 
         dia.setId(dto.id());
         dia.setNome(dto.nome());
@@ -23,16 +22,16 @@ public class DiaMapper {
         return dia;
     }
 
-    public DiaDTO toDTO(DiaEntity entity) {
-        if (entity == null) {
+    public DiaDTO toDTO(Dia dia) {
+        if (dia == null) {
             return null;
         }
         return new DiaDTO(
-                entity.getId(),
-                entity.getNome(),
-                entity.isAberto(),
-                entity.getHorarioAbertura(),
-                entity.getHorarioFechamento()
+                dia.getId(),
+                dia.getNome(),
+                dia.isAberto(),
+                dia.getHorarioAbertura(),
+                dia.getHorarioFechamento()
         );
     }
 }

@@ -1,10 +1,9 @@
 package com.br.second.tech.challenge.infra.controller.mapper;
 
+import com.br.second.tech.challenge.core.domain.Restaurante;
 import com.br.second.tech.challenge.infra.controller.dto.RestauranteDTO;
 import com.br.second.tech.challenge.infra.controller.dto.SemanaFuncionamentoDTO;
 import com.br.second.tech.challenge.infra.database.entity.EnderecoEntity;
-import com.br.second.tech.challenge.infra.database.entity.RestauranteEntity;
-import com.br.second.tech.challenge.infra.database.entity.SemanaFuncionamentoEntity;
 import com.br.second.tech.challenge.infra.database.entity.UsuarioEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,39 +19,39 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class RestauranteMapperTest {
+class RestauranteDTOMapperTest {
 
     EnderecoEntity endereco;
-
-    SemanaFuncionamentoEntity semanaFuncionamento;
-
     SemanaFuncionamentoDTO semanaFuncionamentoDTO;
-
     UsuarioEntity usuario;
-
+    Restaurante restaurante;
     @Mock
-    private SemanaFuncionamentoMapper semanaFuncionamentoMapper;
-
+    private SemanaFuncionamentoDTOMapper semanaFuncionamentoDTOMapper;
     @Mock
     RestauranteDTO dto;
-
     @InjectMocks
-    RestauranteMapper mapper;
+    RestauranteDTOMapper mapper;
 
     @BeforeEach
     void given(){
         endereco = new EnderecoEntity();
-        semanaFuncionamento = new SemanaFuncionamentoEntity();
         semanaFuncionamentoDTO = SemanaFuncionamentoDTO.builder().build();
         usuario = new UsuarioEntity();
+        restaurante = new Restaurante();
+        restaurante.setId(2L);
+        restaurante.setNome("Restaurante B");
+        restaurante.setTipoCozinha("Japonesa");
+        restaurante.setEnderecoEntity(endereco);
+        restaurante.setCardapioEntities(List.of());
+        restaurante.setSemanaFuncionamento(null); // será mockado
+        restaurante.setUsuario(usuario);
     }
 
     @Test
-    @DisplayName("converte DTO para Entity")
-    void toEntity() {
+    @DisplayName("converte DTO para Domínio")
+    void toDomain() {
         //given
-        when(semanaFuncionamentoMapper.toEntity(semanaFuncionamentoDTO)).thenReturn(semanaFuncionamento);
-
+        when(semanaFuncionamentoDTOMapper.toDomain(semanaFuncionamentoDTO)).thenReturn(null);
         //when
         when(dto.id()).thenReturn(1L);
         when(dto.nome()).thenReturn("Restaurante A");
@@ -61,39 +60,26 @@ class RestauranteMapperTest {
         when(dto.cardapioEntities()).thenReturn(List.of());
         when(dto.semanaFuncionamento()).thenReturn(semanaFuncionamentoDTO);
         when(dto.usuario()).thenReturn(usuario);
-
-        RestauranteEntity entity = mapper.toEntity(dto);
-
+        Restaurante domain = mapper.toDomain(dto);
         //then
-        assertNotNull(entity);
-        assertEquals(1L, entity.getId());
-        assertEquals("Restaurante A", entity.getNome());
-        assertEquals("Italiana", entity.getTipoCozinha());
-        assertEquals(endereco, entity.getEnderecoEntity());
-        assertEquals(List.of(), entity.getCardapioEntities());
-        assertEquals(semanaFuncionamento, entity.getSemanaFuncionamento());
-        assertEquals(usuario, entity.getUsuario());
-        verify(semanaFuncionamentoMapper).toEntity(semanaFuncionamentoDTO);
+        assertNotNull(domain);
+        assertEquals(1L, domain.getId());
+        assertEquals("Restaurante A", domain.getNome());
+        assertEquals("Italiana", domain.getTipoCozinha());
+        assertEquals(endereco, domain.getEnderecoEntity());
+        assertEquals(List.of(), domain.getCardapioEntities());
+        assertNull(domain.getSemanaFuncionamento());
+        assertEquals(usuario, domain.getUsuario());
+        verify(semanaFuncionamentoDTOMapper).toDomain(semanaFuncionamentoDTO);
     }
 
     @Test
-    @DisplayName("converte Entity para DTO")
+    @DisplayName("converte Domínio para DTO")
     void toDTO() {
         //given
-        RestauranteEntity entity = new RestauranteEntity();
-        entity.setId(2L);
-        entity.setNome("Restaurante B");
-        entity.setTipoCozinha("Japonesa");
-        entity.setEnderecoEntity(endereco);
-        entity.setCardapioEntities(List.of());
-        entity.setSemanaFuncionamento(semanaFuncionamento);
-        entity.setUsuario(usuario);
-
-        when(semanaFuncionamentoMapper.toDTO(semanaFuncionamento)).thenReturn(semanaFuncionamentoDTO);
-
+        when(semanaFuncionamentoDTOMapper.toDTO(null)).thenReturn(semanaFuncionamentoDTO);
         //when
-        RestauranteDTO dto = mapper.toDTO(entity);
-
+        RestauranteDTO dto = mapper.toDTO(restaurante);
         //then
         assertNotNull(dto);
         assertEquals(2L, dto.id());
@@ -103,6 +89,6 @@ class RestauranteMapperTest {
         assertEquals(List.of(), dto.cardapioEntities());
         assertEquals(semanaFuncionamentoDTO, dto.semanaFuncionamento());
         assertEquals(usuario, dto.usuario());
-        verify(semanaFuncionamentoMapper).toDTO(semanaFuncionamento);
+        verify(semanaFuncionamentoDTOMapper).toDTO(null);
     }
 }

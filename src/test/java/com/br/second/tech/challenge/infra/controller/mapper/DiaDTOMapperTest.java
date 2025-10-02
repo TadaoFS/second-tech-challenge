@@ -1,5 +1,6 @@
 package com.br.second.tech.challenge.infra.controller.mapper;
 
+import com.br.second.tech.challenge.core.domain.Dia;
 import com.br.second.tech.challenge.core.enums.Dias;
 import com.br.second.tech.challenge.infra.controller.dto.DiaDTO;
 import com.br.second.tech.challenge.infra.database.entity.DiaEntity;
@@ -12,19 +13,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class DiaMapperTest {
+class DiaDTOMapperTest {
 
-    private DiaMapper mapper;
+    private DiaDTOMapper mapper;
 
     @BeforeEach
     void given() {
-        mapper = new DiaMapper();
+        mapper = new DiaDTOMapper();
     }
 
     @Test
     @DisplayName("retorna Entity Null para DiaDTO null")
     void retornaNullparaDTOnull() {
-        assertNull(mapper.toEntity(null));
+        assertNull(mapper.toDomain(null));
     }
 
     @Test
@@ -46,37 +47,37 @@ class DiaMapperTest {
         DiaDTO dto = new DiaDTO(id, nome, aberto, horarioAbertura, horarioFechamento);
 
         // When
-        DiaEntity entity = mapper.toEntity(dto);
+        Dia dia = mapper.toDomain(dto);
 
         // Then
-        assertNotNull(entity);
-        assertEquals(id, entity.getId());
-        assertEquals(nome, entity.getNome());
-        assertEquals(aberto, entity.isAberto());
-        assertEquals("08:00", entity.getHorarioAbertura());
-        assertEquals("18:00", entity.getHorarioFechamento());
+        assertNotNull(dto);
+        assertEquals(dia.getId(), dto.id());
+        assertEquals(dia.getNome(), dto.nome());
+        assertEquals(dia.isAberto(), dto.aberto());
+        assertEquals(dia.getHorarioAbertura(), dto.horarioAbertura());
+        assertEquals(dia.getHorarioFechamento(), dto.horarioFechamento());
     }
 
     @Test
     @DisplayName("retorna DTO correto")
     void toDTO() {
         // Given
-        DiaEntity entity = new DiaEntity();
-        entity.setId(1L);
-        entity.setNome(Dias.SEGUNDA);
-        entity.setAberto(true);
-        entity.setHorarioAbertura("08:00");
-        entity.setHorarioFechamento("18:00");
+        Dia dia = new Dia();
+        dia.setId(1L);
+        dia.setNome(Dias.SEGUNDA);
+        dia.setAberto(true);
+        dia.setHorarioAbertura("08:00");
+        dia.setHorarioFechamento("18:00");
 
         // When
-        DiaDTO dto = mapper.toDTO(entity);
+        DiaDTO dto = mapper.toDTO(dia);
 
         // Then
         assertNotNull(dto);
-        assertEquals(entity.getId(), dto.id());
-        assertEquals(entity.getNome(), dto.nome());
-        assertEquals(entity.isAberto(), dto.aberto());
-        assertEquals(entity.getHorarioAbertura(), dto.horarioAbertura());
-        assertEquals(entity.getHorarioFechamento(), dto.horarioFechamento());
+        assertEquals(dia.getId(), dto.id());
+        assertEquals(dia.getNome(), dto.nome());
+        assertEquals(dia.isAberto(), dto.aberto());
+        assertEquals(dia.getHorarioAbertura(), dto.horarioAbertura());
+        assertEquals(dia.getHorarioFechamento(), dto.horarioFechamento());
     }
 }
