@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Usuario")
+@Table(name = "usuario")
 public class UsuarioEntity {
 
     @Id
@@ -29,7 +29,7 @@ public class UsuarioEntity {
     private EnderecoEntity enderecoEntity;
     @OneToOne(cascade = CascadeType.ALL)
     private TipoUsuarioEntity tipoUsuario;
-    @OneToOne(cascade = CascadeType.ALL)
-    private RestauranteEntity restauranteEntity;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private RestauranteEntity restauranteEntity;
 
 }
