@@ -1,8 +1,7 @@
-package com.br.second.tech.challenge.core.domain.mapper;
+package com.br.second.tech.challenge.infra.presenter;
 
 import com.br.second.tech.challenge.core.domain.SemanaFuncionamento;
 import com.br.second.tech.challenge.infra.database.entity.SemanaFuncionamentoEntity;
-import java.util.stream.Collectors;
 
 public class SemanaFuncionamentoMapper {
 

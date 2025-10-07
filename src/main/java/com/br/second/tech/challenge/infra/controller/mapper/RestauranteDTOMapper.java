@@ -30,8 +30,16 @@ public class RestauranteDTOMapper {
         r.setSemanaFuncionamento(semanaFuncionamentoDTOMapper.toDomain(dto.semanaFuncionamento()));
         r.setUsuario(dto.usuario());
         r.setDataAtualizacao(LocalDateTime.now());
-
-        return r;
+        return new Restaurante(
+                dto.id(),
+                dto.nome(),
+                dto.tipoCozinha(),
+                dto.enderecoEntity(),
+                dto.cardapioEntities(),
+                dto.semanaFuncionamento(),
+                dto.usuario(),
+                LocalDateTime.now()
+        );
     }
 
     public RestauranteDTO toDTO(Restaurante restaurante) {

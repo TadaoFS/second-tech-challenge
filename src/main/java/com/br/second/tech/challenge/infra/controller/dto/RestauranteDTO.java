@@ -11,8 +11,8 @@ public record RestauranteDTO(
         Long id,
         String nome,
         String tipoCozinha,
-        SemanaFuncionamentoDTO semanaFuncionamento, //TODO: Alterar para SemanaFuncionamentoDTO
+        SemanaFuncionamentoDTO semanaFuncionamento,
         UsuarioEntity usuario,
-        List<CardapioEntity> cardapioEntities, //TODO: Alterar para CardapioDTO
-        EnderecoEntity enderecoEntity //TODO: Alterar para EnderecoDTO
+        List<CardapioEntity> cardapioEntities,
+        EnderecoEntity enderecoEntity
 ) {}

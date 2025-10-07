@@ -1,8 +1,7 @@
-package com.br.second.tech.challenge.core.domain.mapper;
+package com.br.second.tech.challenge.infra.presenter;
 
 import com.br.second.tech.challenge.core.domain.Restaurante;
 import com.br.second.tech.challenge.infra.database.entity.RestauranteEntity;
-import com.br.second.tech.challenge.core.domain.mapper.SemanaFuncionamentoMapper;
 
 public class RestauranteMapper {
     public static Restaurante toDomain(RestauranteEntity entity) {

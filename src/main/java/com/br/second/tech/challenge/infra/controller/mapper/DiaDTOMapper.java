@@ -8,18 +8,8 @@ import org.springframework.stereotype.Component;
 public class DiaDTOMapper {
 
     public Dia toDomain(DiaDTO dto) {
-        if (dto == null) {
-            return null;
-        }
-        Dia dia = new Dia();
-
-        dia.setId(dto.id());
-        dia.setNome(dto.nome());
-        dia.setAberto(dto.aberto());
-        dia.setHorarioAbertura(dto.horarioAbertura());
-        dia.setHorarioFechamento(dto.horarioFechamento());
-
-        return dia;
+        if (dto == null) return null;
+        return new Dia(dto.id(), dto.nome(), dto.aberto(), dto.horarioAbertura(), dto.horarioFechamento());
     }
 
     public DiaDTO toDTO(Dia dia) {
@@ -27,11 +17,11 @@ public class DiaDTOMapper {
             return null;
         }
         return new DiaDTO(
-                dia.getId(),
-                dia.getNome(),
-                dia.isAberto(),
-                dia.getHorarioAbertura(),
-                dia.getHorarioFechamento()
+                dia.id(),
+                dia.nome(),
+                dia.aberto(),
+                dia.horarioAbertura(),
+                dia.horarioFechamento()
         );
     }
 }

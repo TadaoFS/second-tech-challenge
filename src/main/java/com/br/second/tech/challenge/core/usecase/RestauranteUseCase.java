@@ -14,8 +14,8 @@ import java.util.Optional;
 import com.br.second.tech.challenge.core.domain.Restaurante;
 import com.br.second.tech.challenge.core.domain.SemanaFuncionamento;
 import com.br.second.tech.challenge.core.domain.Dia;
-import com.br.second.tech.challenge.core.domain.mapper.RestauranteMapper;
-import com.br.second.tech.challenge.core.domain.mapper.DiaMapper;
+import com.br.second.tech.challenge.infra.presenter.RestauranteMapper;
+import com.br.second.tech.challenge.infra.presenter.DiaMapper;
 
 @Component
 public class RestauranteUseCase {
