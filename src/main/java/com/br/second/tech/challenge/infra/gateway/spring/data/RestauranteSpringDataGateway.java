@@ -1,40 +1,42 @@
 package com.br.second.tech.challenge.infra.gateway.spring.data;
 
-import com.br.second.tech.challenge.infra.database.entity.RestauranteEntity;
+import com.br.second.tech.challenge.core.domain.Restaurante;
 import com.br.second.tech.challenge.core.gateway.RestauranteGateway;
-import com.br.second.tech.challenge.infra.database.repository.RestauranteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import com.br.second.tech.challenge.infra.gateway.spring.data.repository.RestauranteRepository;
+import com.br.second.tech.challenge.infra.presenter.RestaurantePresenter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Component
+@Service
+@Slf4j
 public class RestauranteSpringDataGateway implements RestauranteGateway {
 
     private final RestauranteRepository repository;
 
-    @Autowired
     public RestauranteSpringDataGateway(RestauranteRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public Optional<RestauranteEntity> findById(Long id) {
-        return repository.findById(id);
+    public Optional<Restaurante> findById(Long id) {
+        return repository.findById(id)
+                .map(RestaurantePresenter::toDomain);
     }
 
     @Override
-    public RestauranteEntity save(RestauranteEntity restauranteEntity) {
-        return repository.save(restauranteEntity);
+    public Restaurante save(Restaurante restaurante) {
+        return null;
     }
 
     @Override
     public void deleteById(Long id) {
-        repository.deleteById(id);
+
     }
 
     @Override
     public boolean existsById(Long id) {
-        return repository.existsById(id);
+        return false;
     }
 }

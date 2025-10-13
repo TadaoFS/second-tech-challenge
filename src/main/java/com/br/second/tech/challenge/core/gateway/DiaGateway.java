@@ -1,11 +1,11 @@
 package com.br.second.tech.challenge.core.gateway;
 
-import com.br.second.tech.challenge.infra.database.entity.DiaEntity;
+import com.br.second.tech.challenge.core.domain.Dia;
 
 
 public interface DiaGateway {
 
-    DiaEntity save(DiaEntity diaEntity);
+    Dia save(Dia dia);
     Boolean existsById(Long id);
     void deleteById(Long id);
 }

@@ -21,4 +21,9 @@ public record Dia (
     public Dia(Long id, Dias dias, boolean aberto, String horarioAbertura, String horarioFechamento) {
         this(id, dias, aberto, horarioAbertura, horarioFechamento, LocalDate.now(), LocalDateTime.now());
     }
+
+
+    public Dia(Dias nome, Boolean aberto, String horarioAbertura, String horarioFechamento) {
+        this(null, nome, aberto, horarioAbertura, horarioFechamento);
+    }
 }

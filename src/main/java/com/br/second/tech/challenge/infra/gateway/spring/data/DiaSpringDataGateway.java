@@ -1,31 +1,31 @@
 package com.br.second.tech.challenge.infra.gateway.spring.data;
 
+import com.br.second.tech.challenge.core.domain.Dia;
 import com.br.second.tech.challenge.core.gateway.DiaGateway;
-import com.br.second.tech.challenge.infra.database.entity.DiaEntity;
-import com.br.second.tech.challenge.infra.database.repository.DiaRepository;
+import com.br.second.tech.challenge.infra.gateway.spring.data.entity.DiaEntity;
+import com.br.second.tech.challenge.infra.gateway.spring.data.repository.DiaRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
+@Slf4j
 public class DiaSpringDataGateway implements DiaGateway {
 
     private DiaRepository repository;
 
-    public DiaSpringDataGateway(DiaRepository repository) {
-        this.repository = repository;
-    }
-
     @Override
-    public DiaEntity save(DiaEntity diaEntity) {
-        return this.repository.save(diaEntity);
+    public Dia save(Dia dia) {
+        return null;
     }
 
     @Override
     public Boolean existsById(Long id) {
-        return this.repository.existsById(id);
+        return null;
     }
 
     @Override
     public void deleteById(Long id) {
-        this.repository.deleteById(id);
+
     }
 }

@@ -16,4 +16,7 @@ public record SemanaFuncionamento(
         LocalDateTime dataCriacao,
         LocalDateTime dataAtualizacao
 ) {
+    public SemanaFuncionamento(Dia segunda, Dia terca, Dia quarta, Dia quinta, Dia sexta, Dia sabado, Dia domingo) {
+        this(null, segunda, terca, quarta, quinta, sexta, sabado, domingo, null, null);
+    }
 }
