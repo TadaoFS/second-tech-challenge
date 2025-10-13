@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -19,12 +21,13 @@ import java.io.IOException;
 public class TokenInterceptorFilter extends OncePerRequestFilter {
 
     private final TokenGateawy tokenGateawy;
-    private final UsuarioGateway usuarioGateway;
+    private final UserDetailsService userDetailsService;
 
-    public TokenInterceptorFilter(TokenGateawy tokenGateawy, UsuarioGateway usuarioGateway) {
+    public TokenInterceptorFilter(TokenGateawy tokenGateawy, UserDetailsService userDetailsService) {
         this.tokenGateawy = tokenGateawy;
-        this.usuarioGateway = usuarioGateway;
+        this.userDetailsService = userDetailsService;
     }
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -40,20 +43,16 @@ public class TokenInterceptorFilter extends OncePerRequestFilter {
 
         token = authHeader.substring(7);
         username = tokenGateawy.extrairLogin(token);
-        var usuarioOp = usuarioGateway.obterPorLogin(username);
-        usuarioOp.ifPresent(
-                usuario -> {
-                    var details = UsuarioPresenter.toUserDetails(usuario);
-                    if (SecurityContextHolder.getContext().getAuthentication() == null) {
-                        if (tokenGateawy.validarToken(token, usuario)) {
-                            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                                    usuario, null, details.getAuthorities());
-                            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                            SecurityContextHolder.getContext().setAuthentication(authToken);
-                        }
-                    }
-                }
-        );
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            var usuarioDomain = UsuarioPresenter.toDomain(userDetails);
+            if (tokenGateawy.validarToken(token, usuarioDomain)) {
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
+        }
 
         filterChain.doFilter(request, response);
     }

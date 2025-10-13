@@ -2,7 +2,6 @@ package com.br.second.tech.challenge.core.domain;
 
 import com.br.second.tech.challenge.core.enums.TipoUsuario;
 
-import java.time.Clock;
 import java.time.LocalDateTime;
 
 public record Usuario(
@@ -33,7 +32,21 @@ public record Usuario(
         this(id, nome, email, login, null, domain, null, null, null);
     }
 
-    public Usuario alteraTipo(TipoUsuario tipoUsuario, Clock clock){
+    public Usuario(String username, String password, String authority) {
+        this (
+                null,
+                null,
+                username,
+                username,
+                password,
+                null,
+                TipoUsuario.valueOf(authority),
+                null,
+                null
+        );
+    }
+
+    public Usuario alteraTipo(TipoUsuario tipoUsuario, LocalDateTime time){
         return new Usuario(
                 this.id,
                 this.nome,
@@ -43,10 +56,10 @@ public record Usuario(
                 this.endereco,
                 tipoUsuario,
                 this.dataCriacao,
-                LocalDateTime.now(clock));
+                time);
     }
 
-    public Usuario gerarCliente(String pass) {
+    public Usuario gerarCliente(String pass, LocalDateTime tempoCriacao) {
         return new Usuario(
                 null,
                 this.nome,
@@ -55,8 +68,22 @@ public record Usuario(
                 pass,
                 this.endereco,
                 TipoUsuario.CLIENTE,
-                this.dataCriacao,
+                tempoCriacao,
                 this.dataAtualizacao
+        );
+    }
+
+    public Usuario dataAtualizacao(LocalDateTime localDateTime) {
+        return new Usuario(
+                this.id,
+                this.nome,
+                this.email,
+                this.login,
+                this.senha,
+                this.endereco,
+                this.tipoUsuario,
+                this.dataCriacao,
+                localDateTime
         );
     }
 }

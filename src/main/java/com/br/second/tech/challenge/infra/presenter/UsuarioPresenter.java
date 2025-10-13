@@ -8,6 +8,7 @@ import com.br.second.tech.challenge.infra.controller.usuario.response.UsuarioRes
 import com.br.second.tech.challenge.infra.gateway.spring.data.entity.UsuarioEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class UsuarioPresenter {
@@ -18,7 +19,7 @@ public class UsuarioPresenter {
                 usuario.email(),
                 usuario.nome(),
                 usuario.login(),
-                EnderecoPresenter.toRespone(usuario.endereco()),
+                EnderecoPresenter.toRespone(Objects.isNull(usuario.endereco()) ? null : usuario.endereco()),
                 usuario.tipoUsuario(),
                 usuario.dataCriacao(),
                 usuario.dataAtualizacao()
@@ -63,6 +64,7 @@ public class UsuarioPresenter {
 
     public static UsuarioEntity toEntity(Usuario usuario) {
         return new UsuarioEntity(
+                Objects.isNull(usuario.id()) ? null : usuario.id(),
                 usuario.nome(),
                 usuario.email(),
                 usuario.login(),
@@ -76,6 +78,14 @@ public class UsuarioPresenter {
                 usuario.login(),
                 usuario.senha(),
                 usuario.tipoUsuario()
+        );
+    }
+
+    public static Usuario toDomain(UserDetails userDetails) {
+        return new Usuario(
+                userDetails.getUsername(),
+                userDetails.getPassword(),
+                userDetails.getAuthorities().stream().findFirst().orElseThrow().getAuthority()
         );
     }
 }

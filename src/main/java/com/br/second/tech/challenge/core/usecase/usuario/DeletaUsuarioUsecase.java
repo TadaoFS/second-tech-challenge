@@ -16,7 +16,7 @@ public class DeletaUsuarioUsecase {
     }
 
     public void executar(Long id){
-        log.info("Deletando usuario com id {}", id);
+        log.info("Deletando idDonoRestaurante com id {}", id);
         var result = usuarioGateway.obterPorId(id);
         if(result.isPresent()){
             usuarioGateway.removeUsuario(id);

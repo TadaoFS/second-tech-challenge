@@ -1,7 +1,7 @@
 package com.br.second.tech.challenge.core.usecase.usuario;
 
 import com.br.second.tech.challenge.core.domain.Usuario;
-import com.br.second.tech.challenge.core.domain.UsuarioStub;
+import com.br.second.tech.challenge.core.stub.UsuarioStub;
 import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
 import com.br.second.tech.challenge.core.gateway.UsuarioGateway;
 import org.junit.jupiter.api.DisplayName;
@@ -40,7 +40,7 @@ class DeletaUsuarioUsecaseTest {
     }
 
     @Test
-    @DisplayName("Nao deve deletar um usuario nao encontrado")
+    @DisplayName("Nao deve deletar um idDonoRestaurante nao encontrado")
     void naoDeveDeletarUmUsuarioNaoEncontrado(){
         Long usuarioId = 1L;
 

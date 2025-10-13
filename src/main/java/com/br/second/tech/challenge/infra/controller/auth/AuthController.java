@@ -32,7 +32,7 @@ public class AuthController {
 
     @PatchMapping("/troca-senha")
     public void trocaSenha(@RequestBody @Valid TrocaSenhaRequest req){
-        log.info("[AuthController.trocaSenha] - Alterando senha do usuario: [ {} ]", req.login());
+        log.info("[AuthController.trocaSenha] - Alterando senha do idDonoRestaurante: [ {} ]", req.login());
         alteraSenhaUsuarioUsecase.executar(req.login(),req.senhaAntiga(), req.senhaNova());
     }
 }

@@ -1,6 +1,6 @@
 package com.br.second.tech.challenge.core.usecase.auth;
 
-import com.br.second.tech.challenge.core.domain.UsuarioStub;
+import com.br.second.tech.challenge.core.stub.UsuarioStub;
 import com.br.second.tech.challenge.core.exception.AutorizacaoLoginErro;
 import com.br.second.tech.challenge.core.gateway.EncriptadorGateway;
 import com.br.second.tech.challenge.core.gateway.TokenGateawy;
@@ -52,7 +52,7 @@ class RealizaLoginUsecaseTest {
     }
 
     @Test
-    @DisplayName("Deve retornar usuario nao encontrado")
+    @DisplayName("Deve retornar idDonoRestaurante nao encontrado")
     void usuarioNaoEncontrado(){
         var userRequest = "joe";
         var userPassword = "pass123";

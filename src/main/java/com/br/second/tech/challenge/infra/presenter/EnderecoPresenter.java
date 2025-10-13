@@ -15,13 +15,12 @@ public class EnderecoPresenter {
                 enderecoEntity.getNumero(),
                 enderecoEntity.getBairro(),
                 enderecoEntity.getCidade(),
-                enderecoEntity.getEstado(),
-                enderecoEntity.getDataCriacao(),
-                enderecoEntity.getDataAtualizacao()
+                enderecoEntity.getEstado()
         );
     }
 
     public static EnderecoResponse toRespone(Endereco endereco) {
+        if (endereco == null) return null;
         return new EnderecoResponse(
                 endereco.id(),
                 endereco.cep(),
@@ -29,9 +28,7 @@ public class EnderecoPresenter {
                 endereco.numero(),
                 endereco.bairro(),
                 endereco.cidade(),
-                endereco.estado(),
-                endereco.dataCriacao(),
-                endereco.dataAtualizacao()
+                endereco.estado()
         );
     }
 
@@ -47,14 +44,13 @@ public class EnderecoPresenter {
     }
 
     public static EnderecoEntity toEntity(Endereco endereco) {
-        return new EnderecoEntity(
-                endereco.id(),
-                endereco.cep(),
-                endereco.logradouro(),
-                endereco.numero(),
-                endereco.bairro(),
-                endereco.cidade(),
-                endereco.estado()
-        );
+        return EnderecoEntity.builder()
+                .cep(endereco.cep())
+                .logradouro(endereco.logradouro())
+                .numero(endereco.numero())
+                .bairro(endereco.bairro())
+                .cidade(endereco.cidade())
+                .estado(endereco.estado())
+                .build();
     }
 }

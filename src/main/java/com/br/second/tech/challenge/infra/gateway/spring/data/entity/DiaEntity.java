@@ -18,7 +18,7 @@ public class DiaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private Dias nome; // Ex: "SEGUNDA", "TERÇA", etc.
     private Boolean aberto; // Indica se o restaurante está aberto neste dia
     private String horarioAbertura; // Formato 24 horas, ex: 1300 para 13:00

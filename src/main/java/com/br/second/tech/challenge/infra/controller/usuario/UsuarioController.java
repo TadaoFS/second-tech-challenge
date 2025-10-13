@@ -34,7 +34,7 @@ public class UsuarioController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UsuarioResponse criar(@RequestBody @Valid CriarUsuarioRequest usuarioReq) {
-        log.info("[UsuarioController.criar] - Criando usuario: [ {}]", usuarioReq);
+        log.info("[UsuarioController.criar] - Criando idDonoRestaurante: [ {}]", usuarioReq);
         var req = UsuarioPresenter.toDomain(usuarioReq);
         var result = criaUsuarioUsecase.executar(req);
         return UsuarioPresenter.toResponse(result);
@@ -42,7 +42,7 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     public UsuarioResponse buscarPorId(@PathVariable Long id) {
-        log.info("[UsuarioController.buscarPorId] - Buscando usuario por id: [ {}]", id);
+        log.info("[UsuarioController.buscarPorId] - Buscando idDonoRestaurante por id: [ {}]", id);
         var result = buscaUsuarioUSecase.executar(id);
         return result.map(UsuarioPresenter::toResponse)
                 .orElseThrow(() -> {
@@ -53,7 +53,7 @@ public class UsuarioController {
 
     @PutMapping
     public UsuarioResponse atualizar(@RequestBody @Valid AtualizaUsuarioRequest usuarioReq) {
-        log.info("[UsuarioController.atualizar] - Atualizando usuario: [ {}]", usuarioReq);
+        log.info("[UsuarioController.atualizar] - Atualizando idDonoRestaurante: [ {}]", usuarioReq);
         var req = UsuarioPresenter.toDomain(usuarioReq);
         var result = atualizaUsuarioUsecase.executar(req);
         log.info("[UsuarioController.atualizar] - Usuario {} atualizado com sucesso", usuarioReq.id());
@@ -62,7 +62,7 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
-        log.info("[UsuarioController.deletar] - Deletando usuario: [ {}]", id);
+        log.info("[UsuarioController.deletar] - Deletando idDonoRestaurante: [ {}]", id);
         deletaUsuarioUsecase.executar(id);
         log.info("[UsuarioController.deletar] - Usuario {} deletado com sucesso", id);
     }

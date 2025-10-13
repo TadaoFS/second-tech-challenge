@@ -9,6 +9,7 @@ import com.br.second.tech.challenge.infra.controller.restaurante.request.Restaur
 import com.br.second.tech.challenge.infra.controller.restaurante.request.RestauranteUpdateRequest;
 import com.br.second.tech.challenge.infra.controller.restaurante.response.RestauranteResponse;
 import com.br.second.tech.challenge.infra.presenter.RestaurantePresenter;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -37,24 +38,27 @@ public class RestauranteController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN') and hasAuthority('DONO_RESTAURANTE')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('DONO_RESTAURANTE')")
     public RestauranteResponse postRestaurante(@RequestBody RestauranteCreateRequest request) {
+        log.info("[RestauranteController] - postRestaurante - request: {}", request);
         var criaRequest = RestaurantePresenter.toDomain(request);
         var restaurante = criarResturante.execute(criaRequest);
         return RestaurantePresenter.toResponse(restaurante);
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('ADMIN') and hasAuthority('DONO_RESTAURANTE')")
-    public RestauranteResponse putRestaurante(@RequestBody RestauranteUpdateRequest request) {
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('DONO_RESTAURANTE')")
+    public RestauranteResponse putRestaurante(@RequestBody @Valid  RestauranteUpdateRequest request) {
+        log.info("[RestauranteController] - putRestaurante - request: {}", request);
         var updateRequest = RestaurantePresenter.toDomain(request);
         var restaurante = atualizarResturanteUsecase.execute(updateRequest);
         return RestaurantePresenter.toResponse(restaurante);
     }
 
     @DeleteMapping(value="/{id}")
-    @PreAuthorize("hasAuthority('ADMIN') and hasAuthority('DONO_RESTAURANTE')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('DONO_RESTAURANTE')")
     public void deleteRestaurante(@PathVariable long id) {
+        log.info("[RestauranteController] - deleteRestaurante - id: {}", id);
         deletarRestaurante.execute(id);
     }
 }

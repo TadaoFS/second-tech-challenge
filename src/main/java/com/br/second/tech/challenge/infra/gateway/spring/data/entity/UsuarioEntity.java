@@ -31,21 +31,13 @@ public class UsuarioEntity {
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
 
-    public UsuarioEntity(String nome, String email, String login, String senha, TipoUsuario tipoUsuario, EnderecoEntity entity) {
+    public UsuarioEntity(Long id, String nome, String email, String login, String senha, TipoUsuario tipoUsuario, EnderecoEntity entity) {
+        this.id = id;
         this.nome = nome;
         this.email = email;
         this.login = login;
         this.senha = senha;
         this.tipoUsuario = tipoUsuario;
         this.endereco = entity;
-    }
-
-    public void obtemDataCriacao() {
-        this.dataCriacao = LocalDateTime.now();
-    }
-
-    public void atualizarDataAtualizacao() {
-        this.dataAtualizacao = LocalDateTime.now();
-        this.endereco.atualizarDataAtualizacao();
     }
 }

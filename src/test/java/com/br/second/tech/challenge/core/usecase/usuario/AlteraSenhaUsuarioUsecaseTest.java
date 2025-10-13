@@ -1,6 +1,6 @@
 package com.br.second.tech.challenge.core.usecase.usuario;
 
-import com.br.second.tech.challenge.core.domain.UsuarioStub;
+import com.br.second.tech.challenge.core.stub.UsuarioStub;
 import com.br.second.tech.challenge.core.exception.AutorizacaoIncorreta;
 import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
 import com.br.second.tech.challenge.core.gateway.EncriptadorGateway;
@@ -31,7 +31,7 @@ class AlteraSenhaUsuarioUsecaseTest {
 
 
     @Test
-    @DisplayName("Deve alterar senha do usuario")
+    @DisplayName("Deve alterar senha do idDonoRestaurante")
     void deveAlterarSenhaDoUsuario() {
         var login = "joe";
         var senhaAntiga = "HASHED_PASSWORD";
@@ -49,7 +49,7 @@ class AlteraSenhaUsuarioUsecaseTest {
     }
 
     @Test
-    @DisplayName("Nao deve alterar senha de usuario nao encontrado")
+    @DisplayName("Nao deve alterar senha de idDonoRestaurante nao encontrado")
     void naoDeveAlterarSenhaDeUsuarioNaoEncontrado() {
         var login = "joe";
         var senhaAntiga = "oldPassword";
@@ -60,7 +60,7 @@ class AlteraSenhaUsuarioUsecaseTest {
     }
 
     @Test
-    @DisplayName("Nao deve alterar senha de usuario com senha antiga invalida")
+    @DisplayName("Nao deve alterar senha de idDonoRestaurante com senha antiga invalida")
     void naoDeveAlterarSenhaDeUsuarioComSenhaAntigaInvalida() {
         var login = "joe";
         var senhaAntiga = "oldPassword";

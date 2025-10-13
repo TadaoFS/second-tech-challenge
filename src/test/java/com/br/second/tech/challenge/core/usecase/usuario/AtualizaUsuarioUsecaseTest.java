@@ -1,9 +1,11 @@
 package com.br.second.tech.challenge.core.usecase.usuario;
 
-import com.br.second.tech.challenge.core.domain.UsuarioStub;
+import com.br.second.tech.challenge.core.gateway.RelogioGateway;
+import com.br.second.tech.challenge.core.stub.UsuarioStub;
 import com.br.second.tech.challenge.core.exception.UsuarioExistenteException;
 import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
 import com.br.second.tech.challenge.core.gateway.UsuarioGateway;
+import com.br.second.tech.challenge.infra.config.ClockStub;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,21 +24,25 @@ class AtualizaUsuarioUsecaseTest {
 
     @Mock
     private UsuarioGateway usuarioGateway;
+    @Mock
+    private RelogioGateway relogioGateway;
 
     @InjectMocks
     private AtualizaUsuarioUsecase atualizaUsuarioUsecase;
 
 
     @Test
-    @DisplayName("Deve atualizar um usuario com sucesso")
+    @DisplayName("Deve atualizar um idDonoRestaurante com sucesso")
     void deveAtualizarUmUsuarioComSucesso() {
         var usuario = UsuarioStub.criaUsuarioAtualizarPayload();
         var usuarioAntigo = UsuarioStub.criaUsuarioAntigoCompleto();
         var usuarioExpected = UsuarioStub.criaUsuarioCompleto();
 
+        when(relogioGateway.registrarTempo())
+                .thenReturn(ClockStub.DATA_FIXA);
         when(usuarioGateway.obterPorId(usuario.id()))
                 .thenReturn(Optional.of(usuarioAntigo));
-        when(usuarioGateway.atualizaUsuario(usuario))
+        when(usuarioGateway.atualizaUsuario(usuario.dataAtualizacao(ClockStub.DATA_FIXA)))
                 .thenReturn(usuarioExpected);
 
         var result = atualizaUsuarioUsecase.executar(usuario);
@@ -52,7 +58,7 @@ class AtualizaUsuarioUsecaseTest {
     }
 
     @Test
-    @DisplayName("Nao deve atualizar usuario nao encontrado")
+    @DisplayName("Nao deve atualizar idDonoRestaurante nao encontrado")
     void naoDeveAtualizarUsuarioNaoEncontrado() {
         var usuario = UsuarioStub.criaUsuarioAtualizarPayload();
 
@@ -64,7 +70,7 @@ class AtualizaUsuarioUsecaseTest {
     }
 
     @Test
-    @DisplayName("Nao deve atualizar usuario ja existente")
+    @DisplayName("Nao deve atualizar idDonoRestaurante ja existente")
     void naoDeveAtualizarUsuarioJaExistente() {
         var usuario = UsuarioStub.criaUsuarioAtualizarPayload();
         var usuarioExistente = UsuarioStub.criaUsuarioCompleto();

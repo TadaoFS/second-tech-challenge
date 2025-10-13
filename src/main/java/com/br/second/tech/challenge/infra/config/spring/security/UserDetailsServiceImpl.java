@@ -1,6 +1,8 @@
 package com.br.second.tech.challenge.infra.config.spring.security;
 
+import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
 import com.br.second.tech.challenge.core.gateway.UsuarioGateway;
+import com.br.second.tech.challenge.infra.gateway.spring.data.repository.UsuarioRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,26 +17,27 @@ import java.util.List;
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UsuarioGateway usuarioGateway;
+    private final UsuarioRepository usuarioRepository;
 
-    public UserDetailsServiceImpl(UsuarioGateway usuarioGateway) {
-        this.usuarioGateway = usuarioGateway;
+    public UserDetailsServiceImpl(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var usuarioOp = usuarioGateway.obterPorLogin(username);
+        var usuarioOp = usuarioRepository.findByLogin(username);
 
         if(usuarioOp.isPresent()) {
             var usuario = usuarioOp.get();
             List<GrantedAuthority> autorizacoes = List.of(
-                    new SimpleGrantedAuthority(usuario.tipoUsuario().name())
+                    new SimpleGrantedAuthority(usuario.getTipoUsuario().name())
             );
-            return new UserSpringSec(username, usuario.senha(), autorizacoes);
+            return new UserSpringSec(username, usuario.getSenha(), autorizacoes);
         }
 
-        log.warn("Usuário não encontrado com username informado: {}", username);
-        throw new UsernameNotFoundException("Usuário não encontrado com username informado: " + username);
+        log.warn("Usuário não encontrado com login informado: {}", username);
+        throw new UsernameNotFoundException("Usuário não encontrado com login informado: " + username);
     }
 
 }

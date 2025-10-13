@@ -2,8 +2,10 @@ package com.br.second.tech.challenge.infra.controller.restaurante.response;
 
 import lombok.Builder;
 
+import java.time.LocalDateTime;
+
 @Builder
-public record SemanaFuncionamentoResponse(
+public record HorarioFuncionamentoResponse(
         Long id,
         DiaResponse segunda,
         DiaResponse terca,
@@ -11,6 +13,8 @@ public record SemanaFuncionamentoResponse(
         DiaResponse quinta,
         DiaResponse sexta,
         DiaResponse sabado,
-        DiaResponse domingo
+        DiaResponse domingo,
+        LocalDateTime dataCriacao,
+        LocalDateTime dataAtualizacao
 ) {
 }

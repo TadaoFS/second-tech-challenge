@@ -35,7 +35,7 @@ public class UsuarioSpringDataGateway implements UsuarioGateway {
             entity.setLogin(usuario.login());
             entity.setEndereco(EnderecoPresenter.toEntity(usuario.endereco()));
             entity.setTipoUsuario(usuario.tipoUsuario());
-            entity.atualizarDataAtualizacao();
+            entity.setDataAtualizacao(usuario.dataAtualizacao());
             var result = repository.save(entity);
             return UsuarioPresenter.toDomain(result);
         }
@@ -54,8 +54,6 @@ public class UsuarioSpringDataGateway implements UsuarioGateway {
     public Usuario salvaUsuario(Usuario usuario) {
         log.info("[UsuarioSpringDataGateway.salvaUsuario] - Salvando usuario: {}", usuario);
         var entity = UsuarioPresenter.toEntity(usuario);
-        entity.obtemDataCriacao();
-        entity.atualizarDataAtualizacao();
         var result = repository.save(entity);
         log.info("[UsuarioSpringDataGateway.salvaUsuario] - Usuario salvo com sucesso: {}", result.getId());
         return UsuarioPresenter.toDomain(result);

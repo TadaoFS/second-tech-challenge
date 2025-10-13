@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "semanaFuncionamento")
+@Table(name = "horario_funcionamento")
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SemanaFuncionamentoEntity {
+public class HorarioFuncionamentoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

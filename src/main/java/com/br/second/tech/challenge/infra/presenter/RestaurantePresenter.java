@@ -14,9 +14,9 @@ public class RestaurantePresenter {
                 entity.getId(),
                 entity.getNome(),
                 entity.getTipoCozinha(),
-                SemanaFuncionamentoPresenter.toDomain(entity.getSemanaFuncionamento()),
+                HorarioFuncionamentoPresenter.toDomain(entity.getHorarioFuncionamento()),
                 UsuarioPresenter.toDomain(entity.getUsuario()),
-                EnderecoPresenter.toDomain(entity.getEnderecoEntity()),
+                EnderecoPresenter.toDomain(entity.getEndereco()),
                 entity.getDataCriacao(),
                 entity.getDataAtualizacao()
         );
@@ -26,7 +26,7 @@ public class RestaurantePresenter {
         return new Restaurante(
                 request.nome(),
                 request.tipoCozinha(),
-                SemanaFuncionamentoPresenter.toDomain(request.horarioFuncionamento()),
+                HorarioFuncionamentoPresenter.toDomain(request.horarioFuncionamento()),
                 request.idDonoRestaurante(),
                 EnderecoPresenter.toDomain(request.endereco())
         );
@@ -37,8 +37,8 @@ public class RestaurantePresenter {
                 request.id(),
                 request.nome(),
                 request.tipoCozinha(),
-                SemanaFuncionamentoPresenter.toDomain(request.horarioFuncionamento()),
-                request.donoRestaurante(),
+                null,
+                request.idDonoRestaurante(),
                 EnderecoPresenter.toDomain(request.endereco())
         );
     }
@@ -48,10 +48,25 @@ public class RestaurantePresenter {
                 restaurante.id(),
                 restaurante.nome(),
                 restaurante.tipoCozinha(),
-                SemanaFuncionamentoPresenter.toResponse(restaurante.semanaFuncionamento()),
-                UsuarioPresenter.toResponse(restaurante.usuario()),
-                EnderecoPresenter.toRespone(restaurante.endereco())
+                HorarioFuncionamentoPresenter.toResponse(restaurante.horarioFuncionamento()),
+                restaurante.usuario().id(),
+                EnderecoPresenter.toRespone(restaurante.endereco()),
+                restaurante.dataCriacao(),
+                restaurante.dataAtualizacao()
         );
+    }
+
+    public static RestauranteEntity toEntity(Restaurante restaurante) {
+        if (restaurante == null) return null;
+        return RestauranteEntity.builder()
+                .nome(restaurante.nome())
+                .tipoCozinha(restaurante.tipoCozinha())
+                .horarioFuncionamento(HorarioFuncionamentoPresenter.toEntity(restaurante.horarioFuncionamento()))
+                .usuario(UsuarioPresenter.toEntity(restaurante.usuario()))
+                .endereco(EnderecoPresenter.toEntity(restaurante.endereco()))
+                .dataCriacao(restaurante.dataCriacao())
+                .dataAtualizacao(restaurante.dataAtualizacao())
+                .build();
     }
 }
 

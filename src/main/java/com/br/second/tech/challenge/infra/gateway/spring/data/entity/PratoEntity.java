@@ -3,6 +3,7 @@ package com.br.second.tech.challenge.infra.gateway.spring.data.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,11 +20,14 @@ public class PratoEntity {
     private Long id;
     private String nome;
     private String descricao;
-    private Double preco;
-    private String urlFoto;
-    private LocalDateTime dataCriacao;
-    private LocalDateTime dataAtualizacao;
-//    @ManyToOne
-//    @JoinColumn(name = "cardapio_id", nullable = false)
-//    private CardapioEntity cardapioEntity;
+    private BigDecimal preco;
+    private Boolean apenasNoLocal;
+    private String fotoDoPrato;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurante_id")
+    private RestauranteEntity restaurante;
+
+    private LocalDateTime dataDeCriacao;
+    private LocalDateTime dataDeAtualizacao;
 }

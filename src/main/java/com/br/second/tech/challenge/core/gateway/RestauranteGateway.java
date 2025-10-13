@@ -6,8 +6,10 @@ import java.util.Optional;
 
 public interface RestauranteGateway {
 
-    Optional<Restaurante> findById(Long id);
-    Restaurante save(Restaurante restaurante);
-    void deleteById(Long id);
-    boolean existsById(Long id);
+    void deletarRestaurante(Long id);
+    Optional<Restaurante> obterPorId(Long id);
+    Optional<Restaurante> obterPorNome(String nome);
+    Optional<Restaurante> obterPorDonoRestaurante(Long idDonoRestaurante);
+    Restaurante criarRestaurante(Restaurante restaurante);
+    Restaurante atualizaRestaurante(Restaurante restaurante);
 }

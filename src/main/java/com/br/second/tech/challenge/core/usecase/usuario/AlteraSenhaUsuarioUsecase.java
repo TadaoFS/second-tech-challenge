@@ -20,7 +20,7 @@ public class AlteraSenhaUsuarioUsecase {
     }
 
     public void executar(String login, String senhaAntiga, String senhaNova){
-        log.info("[AlteraSenhaUsuarioUsecase.executar]: Alterando senha do usuario: {}", login);
+        log.info("[AlteraSenhaUsuarioUsecase.executar]: Alterando senha do idDonoRestaurante: {}", login);
         var user = usuarioGateway.obterPorLogin(login);
         user.ifPresentOrElse( usuario ->  {
             if(encriptadorGateway.validarSenha(senhaAntiga, usuario.senha())){
@@ -28,7 +28,7 @@ public class AlteraSenhaUsuarioUsecase {
                 log.info("[AlteraSenhaUsuarioUsecase.executar] - Senha alterada com sucesso - login: {}", login);
             } else {
                 log.error("[AlteraSenhaUsuarioUsecase.executar] - Senha antiga nao confere - login: {}", login);
-                throw new AutorizacaoIncorreta("Falha na validacao do usuario");
+                throw new AutorizacaoIncorreta("Falha na validacao do idDonoRestaurante");
             }
         }, () -> {
             log.error("[AlteraSenhaUsuarioUsecase.executar] - Usuario nao encontrado - id: {}", login);

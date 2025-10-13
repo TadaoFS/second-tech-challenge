@@ -10,4 +10,6 @@ create table usuario
     tipo_usuario     varchar(255) check (tipo_usuario in ('ADMIN', 'CLIENTE', 'DONO_RESTAURANTE')),
     endereco_id      bigint,
     primary key (id)
-)
+);
+
+alter table if exists usuario add constraint FK8fl5dxscva53gw12f19q6qxf8 foreign key (endereco_id) references endereco;

@@ -1,5 +1,7 @@
-package com.br.second.tech.challenge.core.domain;
+package com.br.second.tech.challenge.core.stub;
 
+import com.br.second.tech.challenge.core.domain.Endereco;
+import com.br.second.tech.challenge.core.domain.Usuario;
 import com.br.second.tech.challenge.core.enums.TipoUsuario;
 import com.br.second.tech.challenge.infra.config.ClockStub;
 
@@ -52,9 +54,7 @@ public class UsuarioStub {
                         1L,
                         "bairro",
                         "cidade teste",
-                        "estado",
-                        ClockStub.DATA_FIXA,
-                        ClockStub.DATA_FIXA
+                        "estado"
                 ),
                 TipoUsuario.CLIENTE,
                 ClockStub.DATA_FIXA,
@@ -76,9 +76,7 @@ public class UsuarioStub {
                         2L,
                         "bairro",
                         "cidade teste",
-                        "estado",
-                        ClockStub.DATA_FIXA,
-                        ClockStub.DATA_FIXA
+                        "estado"
                 ),
                 TipoUsuario.CLIENTE,
                 ClockStub.DATA_FIXA,
@@ -104,9 +102,7 @@ public class UsuarioStub {
                         1L,
                         "bairro",
                         "cidade teste",
-                        "estado",
-                        ClockStub.DATA_FIXA,
-                        ClockStub.DATA_FIXA
+                        "estado"
                 ),
                 TipoUsuario.DONO_RESTAURANTE,
                 ClockStub.DATA_FIXA,
