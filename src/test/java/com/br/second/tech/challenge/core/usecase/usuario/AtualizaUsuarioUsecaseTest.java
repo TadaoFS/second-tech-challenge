@@ -1,0 +1,87 @@
+package com.br.second.tech.challenge.core.usecase.usuario;
+
+import com.br.second.tech.challenge.core.gateway.RelogioGateway;
+import com.br.second.tech.challenge.core.stub.UsuarioStub;
+import com.br.second.tech.challenge.core.exception.UsuarioExistenteException;
+import com.br.second.tech.challenge.core.exception.UsuarioNotFoundException;
+import com.br.second.tech.challenge.core.gateway.UsuarioGateway;
+import com.br.second.tech.challenge.infra.config.ClockStub;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
+class AtualizaUsuarioUsecaseTest {
+
+    @Mock
+    private UsuarioGateway usuarioGateway;
+    @Mock
+    private RelogioGateway relogioGateway;
+
+    @InjectMocks
+    private AtualizaUsuarioUsecase atualizaUsuarioUsecase;
+
+
+    @Test
+    @DisplayName("Deve atualizar um idDonoRestaurante com sucesso")
+    void deveAtualizarUmUsuarioComSucesso() {
+        var usuario = UsuarioStub.criaUsuarioAtualizarPayload();
+        var usuarioAntigo = UsuarioStub.criaUsuarioAntigoCompleto();
+        var usuarioExpected = UsuarioStub.criaUsuarioCompleto();
+
+        when(relogioGateway.registrarTempo())
+                .thenReturn(ClockStub.DATA_FIXA);
+        when(usuarioGateway.obterPorId(usuario.id()))
+                .thenReturn(Optional.of(usuarioAntigo));
+        when(usuarioGateway.atualizaUsuario(usuario.dataAtualizacao(ClockStub.DATA_FIXA)))
+                .thenReturn(usuarioExpected);
+
+        var result = atualizaUsuarioUsecase.executar(usuario);
+
+        assertEquals(usuarioExpected.id(), result.id());
+        assertEquals(usuarioExpected.nome(), result.nome());
+        assertEquals(usuarioExpected.email(), result.email());
+        assertEquals(usuarioExpected.login(), result.login());
+        assertEquals(usuarioExpected.senha(), result.senha());
+        assertEquals(usuarioExpected.tipoUsuario(), result.tipoUsuario());
+        assertEquals(usuarioExpected.endereco().id(), result.endereco().id());
+        assertEquals(usuarioExpected.endereco().logradouro(), result.endereco().logradouro());
+    }
+
+    @Test
+    @DisplayName("Nao deve atualizar idDonoRestaurante nao encontrado")
+    void naoDeveAtualizarUsuarioNaoEncontrado() {
+        var usuario = UsuarioStub.criaUsuarioAtualizarPayload();
+
+        when(usuarioGateway.obterPorId(usuario.id()))
+                .thenReturn(Optional.empty());
+
+        assertThrows(UsuarioNotFoundException.class, () -> atualizaUsuarioUsecase.executar(usuario));
+        verify(usuarioGateway, times(0)).atualizaUsuario(usuario);
+    }
+
+    @Test
+    @DisplayName("Nao deve atualizar idDonoRestaurante ja existente")
+    void naoDeveAtualizarUsuarioJaExistente() {
+        var usuario = UsuarioStub.criaUsuarioAtualizarPayload();
+        var usuarioExistente = UsuarioStub.criaUsuarioCompleto();
+        var usuarioAntigo = UsuarioStub.criaUsuarioAntigoCompleto();
+
+        when(usuarioGateway.obterPorId(usuario.id()))
+                .thenReturn(Optional.of(usuarioAntigo));
+        when(usuarioGateway.obterPorLoginOuEmail(usuario.login(), usuario.email()))
+                .thenReturn(Optional.of(usuarioExistente));
+
+        assertThrows(UsuarioExistenteException.class, () -> atualizaUsuarioUsecase.executar(usuario));
+        verify(usuarioGateway, times(0)).atualizaUsuario(usuario);
+    }
+}

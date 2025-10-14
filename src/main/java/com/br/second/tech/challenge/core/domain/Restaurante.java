@@ -1,64 +1,98 @@
 package com.br.second.tech.challenge.core.domain;
 
-import com.br.second.tech.challenge.infra.database.entity.CardapioEntity;
-import com.br.second.tech.challenge.infra.database.entity.EnderecoEntity;
-import com.br.second.tech.challenge.infra.database.entity.UsuarioEntity;
-
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Restaurante {
-    private Long id;
-    private String nome;
-    private String tipoCozinha;
-    private LocalDateTime dataCriacao;
-    private LocalDateTime dataAtualizacao;
-    private SemanaFuncionamento semanaFuncionamento;
-    private UsuarioEntity usuario;
-    private List<CardapioEntity> cardapioEntities;
-    private EnderecoEntity enderecoEntity;
-
-    // Getters e setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
-    public LocalDateTime getDataCriacao() { return dataCriacao; }
-    public void setDataCriacao(LocalDateTime dataCriacao) { this.dataCriacao = dataCriacao; }
-    public LocalDateTime getDataAtualizacao() { return dataAtualizacao; }
-    public void setDataAtualizacao(LocalDateTime dataAtualizacao) { this.dataAtualizacao = dataAtualizacao; }
-    public SemanaFuncionamento getSemanaFuncionamento() { return semanaFuncionamento; }
-    public void setSemanaFuncionamento(SemanaFuncionamento semanaFuncionamento) { this.semanaFuncionamento = semanaFuncionamento; }
-
-    public String getTipoCozinha() {
-        return tipoCozinha;
+public record Restaurante(
+        Long id,
+        String nome,
+        String tipoCozinha,
+        HorarioFuncionamento horarioFuncionamento,
+        Usuario usuario,
+        Endereco endereco,
+        List<Prato> cardapio,
+        LocalDateTime dataCriacao,
+        LocalDateTime dataAtualizacao
+) {
+    public Restaurante(Long id, String nome, String tipoCozinha, HorarioFuncionamento horarioFuncionamento, Long idUsuario, Endereco endereco) {
+        this(id, nome, tipoCozinha, horarioFuncionamento, new Usuario(idUsuario), endereco, null, null, null);
     }
 
-    public void setTipoCozinha(String tipoCozinha) {
-        this.tipoCozinha = tipoCozinha;
+    public Restaurante(String nome, String tipoCozinha, HorarioFuncionamento horarioFuncionamento, Long idDonoRestaurante, Endereco endereco) {
+        this(null, nome, tipoCozinha, horarioFuncionamento, new Usuario(idDonoRestaurante), endereco, null, null, null);
     }
 
-    public UsuarioEntity getUsuario() {
-        return usuario;
+    public Restaurante(Long id, String nome, String tipoCozinha, HorarioFuncionamento domain, Usuario domain1, Endereco domain2, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao) {
+        this(id, nome, tipoCozinha, domain, domain1, domain2, null, dataCriacao, dataAtualizacao);
     }
 
-    public void setUsuario(UsuarioEntity usuario) {
-        this.usuario = usuario;
+    public Restaurante(Long idRestaurante) {
+        this(idRestaurante,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
     }
 
-    public List<CardapioEntity> getCardapioEntities() {
-        return cardapioEntities;
+    public Restaurante criar(LocalDateTime localDateTime, Usuario usuario) {
+        return new Restaurante(
+                this.id,
+                this.nome,
+                this.tipoCozinha,
+                this.horarioFuncionamento.comDataCriacao(localDateTime),
+                usuario,
+                this.endereco,
+                new ArrayList<>(),
+                localDateTime,
+                localDateTime
+        );
     }
 
-    public void setCardapioEntities(List<CardapioEntity> cardapioEntities) {
-        this.cardapioEntities = cardapioEntities;
+    public Restaurante atualiza(Usuario usuario, LocalDateTime localDateTime) {
+        return new Restaurante(
+                this.id,
+                this.nome,
+                this.tipoCozinha,
+                this.horarioFuncionamento,
+                usuario,
+                this.endereco,
+                null,
+                this.dataCriacao,
+                localDateTime
+        );
     }
 
-    public EnderecoEntity getEnderecoEntity() {
-        return enderecoEntity;
+    public Restaurante comHorarioFuncionamento(HorarioFuncionamento horarioFuncionamento) {
+        return new Restaurante(
+                this.id,
+                this.nome,
+                this.tipoCozinha,
+                horarioFuncionamento,
+                this.usuario,
+                this.endereco,
+                null,
+                this.dataCriacao,
+                this.dataAtualizacao
+        );
     }
 
-    public void setEnderecoEntity(EnderecoEntity enderecoEntity) {
-        this.enderecoEntity = enderecoEntity;
+    public Restaurante atualizaPrato(List<Prato> pratosCompletos) {
+        return new Restaurante(
+                this.id,
+                this.nome,
+                this.tipoCozinha,
+                this.horarioFuncionamento,
+                this.usuario,
+                this.endereco,
+                pratosCompletos,
+                this.dataCriacao,
+                this.dataAtualizacao
+        );
     }
 }
