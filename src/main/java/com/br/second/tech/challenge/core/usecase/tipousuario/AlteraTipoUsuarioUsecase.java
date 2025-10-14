@@ -1,7 +1,7 @@
 package com.br.second.tech.challenge.core.usecase.tipousuario;
 
 import com.br.second.tech.challenge.core.enums.TipoUsuario;
-import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
+import com.br.second.tech.challenge.core.exception.UsuarioNotFoundException;
 import com.br.second.tech.challenge.core.gateway.RelogioGateway;
 import com.br.second.tech.challenge.core.gateway.UsuarioGateway;
 import lombok.extern.slf4j.Slf4j;
@@ -27,11 +27,11 @@ public class AlteraTipoUsuarioUsecase {
         var tipoUsuario = TipoUsuario.extract(novoTipo);
         if(usuarioOp.isPresent()) {
             var usuario = usuarioOp.get();
-            usuarioGateway.atualizaUsuario(usuario.alteraTipo(tipoUsuario, relogioGateway.registrarTempo()));
+            usuarioGateway.alteraTipoUsuario(usuario.alteraTipo(tipoUsuario, relogioGateway.registrarTempo()));
             log.info("Tipo do usuário com ID {} alterado para {}", id, novoTipo);
         } else {
             log.error("Usuário com ID {} não encontrado", id);
-            throw new UsuarioNotFound("Usuário não encontrado");
+            throw new UsuarioNotFoundException("Usuário não encontrado");
         }
     }
 }

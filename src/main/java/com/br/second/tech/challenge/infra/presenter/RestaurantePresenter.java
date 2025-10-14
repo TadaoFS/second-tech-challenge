@@ -4,7 +4,10 @@ import com.br.second.tech.challenge.core.domain.Restaurante;
 import com.br.second.tech.challenge.infra.controller.restaurante.request.RestauranteCreateRequest;
 import com.br.second.tech.challenge.infra.controller.restaurante.request.RestauranteUpdateRequest;
 import com.br.second.tech.challenge.infra.controller.restaurante.response.RestauranteResponse;
+import com.br.second.tech.challenge.infra.gateway.spring.data.entity.PratoEntity;
 import com.br.second.tech.challenge.infra.gateway.spring.data.entity.RestauranteEntity;
+
+import java.util.ArrayList;
 
 public class RestaurantePresenter {
 
@@ -17,6 +20,7 @@ public class RestaurantePresenter {
                 HorarioFuncionamentoPresenter.toDomain(entity.getHorarioFuncionamento()),
                 UsuarioPresenter.toDomain(entity.getUsuario()),
                 EnderecoPresenter.toDomain(entity.getEndereco()),
+                CardapioPresenter.toDomain(entity.getCardapio()),
                 entity.getDataCriacao(),
                 entity.getDataAtualizacao()
         );
@@ -58,15 +62,22 @@ public class RestaurantePresenter {
 
     public static RestauranteEntity toEntity(Restaurante restaurante) {
         if (restaurante == null) return null;
-        return RestauranteEntity.builder()
-                .nome(restaurante.nome())
-                .tipoCozinha(restaurante.tipoCozinha())
-                .horarioFuncionamento(HorarioFuncionamentoPresenter.toEntity(restaurante.horarioFuncionamento()))
-                .usuario(UsuarioPresenter.toEntity(restaurante.usuario()))
-                .endereco(EnderecoPresenter.toEntity(restaurante.endereco()))
-                .dataCriacao(restaurante.dataCriacao())
-                .dataAtualizacao(restaurante.dataAtualizacao())
-                .build();
+        return new RestauranteEntity(
+                restaurante.nome(),
+                restaurante.tipoCozinha(),
+                HorarioFuncionamentoPresenter.toEntity(restaurante.horarioFuncionamento()),
+                UsuarioPresenter.toEntity(restaurante.usuario()),
+                EnderecoPresenter.toEntity(restaurante.endereco()),
+                new ArrayList<>(),
+                restaurante.dataCriacao(),
+                restaurante.dataAtualizacao()
+        );
+    }
+
+    public static Restaurante toDomain(PratoEntity pratoEntity) {
+        return new Restaurante(
+                pratoEntity.getId()
+        );
     }
 }
 

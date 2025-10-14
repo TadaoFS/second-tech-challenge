@@ -5,6 +5,8 @@ import com.br.second.tech.challenge.infra.controller.request.EnderecoRequest;
 import com.br.second.tech.challenge.infra.controller.response.EnderecoResponse;
 import com.br.second.tech.challenge.infra.gateway.spring.data.entity.EnderecoEntity;
 
+import java.util.Objects;
+
 public class EnderecoPresenter {
 
     public static Endereco toDomain(EnderecoEntity enderecoEntity) {
@@ -41,6 +43,18 @@ public class EnderecoPresenter {
                 endereco.cidade(),
                 endereco.estado()
         );
+    }
+
+    public static EnderecoEntity toEntity(Endereco endereco, Long id) {
+        return EnderecoEntity.builder()
+                .id(id)
+                .cep(endereco.cep())
+                .logradouro(endereco.logradouro())
+                .numero(endereco.numero())
+                .bairro(endereco.bairro())
+                .cidade(endereco.cidade())
+                .estado(endereco.estado())
+                .build();
     }
 
     public static EnderecoEntity toEntity(Endereco endereco) {

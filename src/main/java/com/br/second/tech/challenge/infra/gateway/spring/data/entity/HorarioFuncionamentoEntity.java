@@ -1,5 +1,6 @@
 package com.br.second.tech.challenge.infra.gateway.spring.data.entity;
 
+import com.br.second.tech.challenge.infra.gateway.spring.data.model.HorarioUnidadeModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,27 +20,63 @@ public class HorarioFuncionamentoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "segunda_id")
-    private DiaEntity segunda;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "terca_id")
-    private DiaEntity terca;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "quarta_id")
-    private DiaEntity quarta;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "quinta_id")
-    private DiaEntity quinta;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sexta_id")
-    private DiaEntity sexta;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sabado_id")
-    private DiaEntity sabado;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "domingo_id")
-    private DiaEntity domingo;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "aberto", column = @Column(name = "seg_aberto")),
+            @AttributeOverride(name = "horarioAbertura", column = @Column(name = "seg_abertura")),
+            @AttributeOverride(name = "horarioFechamento", column = @Column(name = "seg_fechamento"))
+    })
+    private HorarioUnidadeModel segunda;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "aberto", column = @Column(name = "ter_aberto")),
+            @AttributeOverride(name = "horarioAbertura", column = @Column(name = "ter_abertura")),
+            @AttributeOverride(name = "horarioFechamento", column = @Column(name = "ter_fechamento"))
+    })
+    private HorarioUnidadeModel terca;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "aberto", column = @Column(name = "qua_aberto")),
+            @AttributeOverride(name = "horarioAbertura", column = @Column(name = "qua_abertura")),
+            @AttributeOverride(name = "horarioFechamento", column = @Column(name = "qua_fechamento"))
+    })
+    private HorarioUnidadeModel quarta;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "aberto", column = @Column(name = "qui_aberto")),
+            @AttributeOverride(name = "horarioAbertura", column = @Column(name = "qui_abertura")),
+            @AttributeOverride(name = "horarioFechamento", column = @Column(name = "qui_fechamento"))
+    })
+    private HorarioUnidadeModel quinta;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "aberto", column = @Column(name = "sext_aberto")),
+            @AttributeOverride(name = "horarioAbertura", column = @Column(name = "sext_abertura")),
+            @AttributeOverride(name = "horarioFechamento", column = @Column(name = "sext_fechamento"))
+    })
+    private HorarioUnidadeModel sexta;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "aberto", column = @Column(name = "sab_aberto")),
+            @AttributeOverride(name = "horarioAbertura", column = @Column(name = "sab_abertura")),
+            @AttributeOverride(name = "horarioFechamento", column = @Column(name = "sab_fechamento"))
+    })
+    private HorarioUnidadeModel sabado;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "aberto", column = @Column(name = "dom_aberto")),
+            @AttributeOverride(name = "horarioAbertura", column = @Column(name = "dom_abertura")),
+            @AttributeOverride(name = "horarioFechamento", column = @Column(name = "dom_fechamento"))
+    })
+    private HorarioUnidadeModel domingo;
+
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
 }

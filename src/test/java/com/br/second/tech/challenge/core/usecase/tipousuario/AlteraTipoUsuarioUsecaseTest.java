@@ -1,7 +1,7 @@
 package com.br.second.tech.challenge.core.usecase.tipousuario;
 
 import com.br.second.tech.challenge.core.exception.TipoUsuarioNotFound;
-import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
+import com.br.second.tech.challenge.core.exception.UsuarioNotFoundException;
 import com.br.second.tech.challenge.core.gateway.RelogioGateway;
 import com.br.second.tech.challenge.core.gateway.UsuarioGateway;
 import com.br.second.tech.challenge.core.stub.UsuarioStub;
@@ -44,7 +44,7 @@ class AlteraTipoUsuarioUsecaseTest {
 
         alteraTipoUsuarioUsecase.executar(id, novoTipo);
 
-        verify(usuarioGateway, times(1)).atualizaUsuario(donoRestaurante);
+        verify(usuarioGateway, times(1)).alteraTipoUsuario(donoRestaurante);
     }
 
     @Test
@@ -53,7 +53,7 @@ class AlteraTipoUsuarioUsecaseTest {
         Long id = 1L;
         String novoTipo = "DONO_RESTAURANTE";
 
-        assertThrows(UsuarioNotFound.class, () -> alteraTipoUsuarioUsecase.executar(id, novoTipo));
+        assertThrows(UsuarioNotFoundException.class, () -> alteraTipoUsuarioUsecase.executar(id, novoTipo));
         verify(usuarioGateway, never()).atualizaUsuario(any());
     }
 

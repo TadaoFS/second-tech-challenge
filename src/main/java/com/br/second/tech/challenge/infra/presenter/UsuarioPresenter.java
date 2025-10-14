@@ -70,7 +70,10 @@ public class UsuarioPresenter {
                 usuario.login(),
                 usuario.senha(),
                 usuario.tipoUsuario(),
-                EnderecoPresenter.toEntity(usuario.endereco()));
+                EnderecoPresenter.toEntity(usuario.endereco()),
+                usuario.dataCriacao(),
+                usuario.dataAtualizacao()
+        );
     }
 
     public static UserDetails toUserDetails(Usuario usuario) {

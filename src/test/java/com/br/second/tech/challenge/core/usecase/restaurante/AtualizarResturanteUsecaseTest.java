@@ -1,7 +1,7 @@
 package com.br.second.tech.challenge.core.usecase.restaurante;
 
-import com.br.second.tech.challenge.core.exception.RestauranteNotFound;
-import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
+import com.br.second.tech.challenge.core.exception.RestauranteNotFoundException;
+import com.br.second.tech.challenge.core.exception.UsuarioNotFoundException;
 import com.br.second.tech.challenge.core.exception.UsuarioSemPermissaoException;
 import com.br.second.tech.challenge.core.gateway.RelogioGateway;
 import com.br.second.tech.challenge.core.gateway.RestauranteGateway;
@@ -68,7 +68,7 @@ class AtualizarResturanteUsecaseTest {
         when(usuarioGateway.obterPorId(1L))
                 .thenReturn(Optional.empty());
 
-        assertThrows(UsuarioNotFound.class, () -> atualizarResturanteUsecase.execute(restauranteAt));
+        assertThrows(UsuarioNotFoundException.class, () -> atualizarResturanteUsecase.execute(restauranteAt));
     }
 
     @Test
@@ -83,7 +83,7 @@ class AtualizarResturanteUsecaseTest {
         when(restauranteGateway.obterPorId(1L))
                 .thenReturn(Optional.empty());
 
-        assertThrows(RestauranteNotFound.class, () -> atualizarResturanteUsecase.execute(restauranteAt));
+        assertThrows(RestauranteNotFoundException.class, () -> atualizarResturanteUsecase.execute(restauranteAt));
     }
 
     @Test

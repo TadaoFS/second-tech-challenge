@@ -1,8 +1,6 @@
 package com.br.second.tech.challenge.core.domain;
 
 import com.br.second.tech.challenge.core.enums.Dias;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 

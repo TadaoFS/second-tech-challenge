@@ -1,7 +1,7 @@
 package com.br.second.tech.challenge.core.usecase.usuario;
 
 import com.br.second.tech.challenge.core.exception.AutorizacaoIncorreta;
-import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
+import com.br.second.tech.challenge.core.exception.UsuarioNotFoundException;
 import com.br.second.tech.challenge.core.gateway.EncriptadorGateway;
 import com.br.second.tech.challenge.core.gateway.UsuarioGateway;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class AlteraSenhaUsuarioUsecase {
             }
         }, () -> {
             log.error("[AlteraSenhaUsuarioUsecase.executar] - Usuario nao encontrado - id: {}", login);
-            throw new UsuarioNotFound("Usuario {login} nao encontrado".replace("{login}", String.valueOf(login)));
+            throw new UsuarioNotFoundException("Usuario {login} nao encontrado".replace("{login}", String.valueOf(login)));
         });
     }
 }

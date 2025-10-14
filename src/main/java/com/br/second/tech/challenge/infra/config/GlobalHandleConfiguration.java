@@ -24,7 +24,11 @@ public class GlobalHandleConfiguration {
 
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler({UsuarioNotFound.class, RestauranteNotFound.class})
+    @ExceptionHandler({
+            UsuarioNotFoundException.class,
+            RestauranteNotFoundException.class,
+            RestauranteSemCardapioException.class
+    })
     @ResponseBody
     public ExceptionMensagem handleNotFoundException(Exception ex) {
         log.error(ex.getMessage(), ex);

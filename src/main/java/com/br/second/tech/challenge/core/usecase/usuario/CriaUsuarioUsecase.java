@@ -32,7 +32,8 @@ public class CriaUsuarioUsecase {
             throw new UsuarioExistenteException("Usuário com login ou email já existe.");
         }
         var pass = encriptadorGateway.encriptar(usuario.senha());
-        var result = usuarioGateway.salvaUsuario(usuario.gerarCliente(pass, relogioGateway.registrarTempo()));
+        var usuarioCompleto = usuario.gerarCliente(pass, relogioGateway.registrarTempo());
+        var result = usuarioGateway.salvaUsuario(usuarioCompleto);
         log.info("[CriaUsuarioUsecase.executar] - Usuario criado com sucesso: {}", result.id());
         return result;
     }

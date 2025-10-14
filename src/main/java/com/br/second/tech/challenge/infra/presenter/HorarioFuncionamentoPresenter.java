@@ -12,13 +12,13 @@ public class HorarioFuncionamentoPresenter {
     public static HorarioFuncionamento toDomain(HorarioFuncionamentoEntity horarioFuncionamentoEntity) {
         return new HorarioFuncionamento(
                 horarioFuncionamentoEntity.getId(),
-                DiaPresenter.toDomain(horarioFuncionamentoEntity.getSegunda()),
-                DiaPresenter.toDomain(horarioFuncionamentoEntity.getTerca()),
-                DiaPresenter.toDomain(horarioFuncionamentoEntity.getQuarta()),
-                DiaPresenter.toDomain(horarioFuncionamentoEntity.getQuinta()),
-                DiaPresenter.toDomain(horarioFuncionamentoEntity.getSexta()),
-                DiaPresenter.toDomain(horarioFuncionamentoEntity.getSabado()),
-                DiaPresenter.toDomain(horarioFuncionamentoEntity.getDomingo()),
+                HorarioUnidadePresenter.toDomain(horarioFuncionamentoEntity.getSegunda()),
+                HorarioUnidadePresenter.toDomain(horarioFuncionamentoEntity.getTerca()),
+                HorarioUnidadePresenter.toDomain(horarioFuncionamentoEntity.getQuarta()),
+                HorarioUnidadePresenter.toDomain(horarioFuncionamentoEntity.getQuinta()),
+                HorarioUnidadePresenter.toDomain(horarioFuncionamentoEntity.getSexta()),
+                HorarioUnidadePresenter.toDomain(horarioFuncionamentoEntity.getSabado()),
+                HorarioUnidadePresenter.toDomain(horarioFuncionamentoEntity.getDomingo()),
                 horarioFuncionamentoEntity.getDataCriacao(),
                 horarioFuncionamentoEntity.getDataAtualizacao()
         );
@@ -26,13 +26,16 @@ public class HorarioFuncionamentoPresenter {
 
     public static HorarioFuncionamento toDomain(HorarioFuncionamentoRequest horarioFuncionamentoRequest) {
         return new HorarioFuncionamento(
-                DiaPresenter.toDomain(horarioFuncionamentoRequest.segunda()),
-                DiaPresenter.toDomain(horarioFuncionamentoRequest.terca()),
-                DiaPresenter.toDomain(horarioFuncionamentoRequest.quarta()),
-                DiaPresenter.toDomain(horarioFuncionamentoRequest.quinta()),
-                DiaPresenter.toDomain(horarioFuncionamentoRequest.sexta()),
-                DiaPresenter.toDomain(horarioFuncionamentoRequest.sabado()),
-                DiaPresenter.toDomain(horarioFuncionamentoRequest.domingo())
+                null,
+                HorarioUnidadePresenter.toDomain(horarioFuncionamentoRequest.segunda()),
+                HorarioUnidadePresenter.toDomain(horarioFuncionamentoRequest.terca()),
+                HorarioUnidadePresenter.toDomain(horarioFuncionamentoRequest.quarta()),
+                HorarioUnidadePresenter.toDomain(horarioFuncionamentoRequest.quinta()),
+                HorarioUnidadePresenter.toDomain(horarioFuncionamentoRequest.sexta()),
+                HorarioUnidadePresenter.toDomain(horarioFuncionamentoRequest.sabado()),
+                HorarioUnidadePresenter.toDomain(horarioFuncionamentoRequest.domingo()),
+                null,
+                null
         );
     }
 
@@ -40,13 +43,13 @@ public class HorarioFuncionamentoPresenter {
         if (result == null) return null;
         return new HorarioFuncionamentoResponse(
                 result.id(),
-                DiaPresenter.toResponse(result.segunda()),
-                DiaPresenter.toResponse(result.terca()),
-                DiaPresenter.toResponse(result.quarta()),
-                DiaPresenter.toResponse(result.quinta()),
-                DiaPresenter.toResponse(result.sexta()),
-                DiaPresenter.toResponse(result.sabado()),
-                DiaPresenter.toResponse(result.domingo()),
+                HorarioUnidadePresenter.toResponse(result.segunda()),
+                HorarioUnidadePresenter.toResponse(result.terca()),
+                HorarioUnidadePresenter.toResponse(result.quarta()),
+                HorarioUnidadePresenter.toResponse(result.quinta()),
+                HorarioUnidadePresenter.toResponse(result.sexta()),
+                HorarioUnidadePresenter.toResponse(result.sabado()),
+                HorarioUnidadePresenter.toResponse(result.domingo()),
                 result.dataCriacao(),
                 result.dataAtualizacao()
         );
@@ -56,13 +59,13 @@ public class HorarioFuncionamentoPresenter {
         if (horarioFuncionamento == null) return null;
         return HorarioFuncionamentoEntity.builder()
                 .id(Objects.isNull(horarioFuncionamento.id()) ? null : horarioFuncionamento.id())
-                .segunda(DiaPresenter.toEntity(horarioFuncionamento.segunda()))
-                .terca(DiaPresenter.toEntity(horarioFuncionamento.terca()))
-                .quarta(DiaPresenter.toEntity(horarioFuncionamento.quarta()))
-                .quinta(DiaPresenter.toEntity(horarioFuncionamento.quinta()))
-                .sexta(DiaPresenter.toEntity(horarioFuncionamento.sexta()))
-                .sabado(DiaPresenter.toEntity(horarioFuncionamento.sabado()))
-                .domingo(DiaPresenter.toEntity(horarioFuncionamento.domingo()))
+                .segunda(HorarioUnidadePresenter.toModel(horarioFuncionamento.segunda()))
+                .terca(HorarioUnidadePresenter.toModel(horarioFuncionamento.terca()))
+                .quarta(HorarioUnidadePresenter.toModel(horarioFuncionamento.quarta()))
+                .quinta(HorarioUnidadePresenter.toModel(horarioFuncionamento.quinta()))
+                .sexta(HorarioUnidadePresenter.toModel(horarioFuncionamento.sexta()))
+                .sabado(HorarioUnidadePresenter.toModel(horarioFuncionamento.sabado()))
+                .domingo(HorarioUnidadePresenter.toModel(horarioFuncionamento.domingo()))
                 .dataCriacao(horarioFuncionamento.dataCriacao())
                 .dataAtualizacao(horarioFuncionamento.dataAtualizacao())
                 .build();

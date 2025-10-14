@@ -3,8 +3,8 @@ package com.br.second.tech.challenge.core.usecase.restaurante;
 import com.br.second.tech.challenge.core.domain.Restaurante;
 import com.br.second.tech.challenge.core.enums.TipoUsuario;
 import com.br.second.tech.challenge.core.exception.RestauranteJaExistenteException;
-import com.br.second.tech.challenge.core.exception.RestauranteNotFound;
-import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
+import com.br.second.tech.challenge.core.exception.RestauranteNotFoundException;
+import com.br.second.tech.challenge.core.exception.UsuarioNotFoundException;
 import com.br.second.tech.challenge.core.exception.UsuarioSemPermissaoException;
 import com.br.second.tech.challenge.core.gateway.RelogioGateway;
 import com.br.second.tech.challenge.core.gateway.RestauranteGateway;
@@ -37,7 +37,7 @@ public class AtualizarResturanteUsecase {
 
         if(usuarioOp.isEmpty()){
             log.error("[AtualizarResturanteUsecase] Usuário com ID {} não encontrado", restaurante.usuario().id());
-            throw new UsuarioNotFound("Usuário do restaurante não encontrado");
+            throw new UsuarioNotFoundException("Usuário do restaurante não encontrado");
         } else {
             if(!usuarioOp.get().tipoUsuario().equals(TipoUsuario.DONO_RESTAURANTE)){
                 log.error("[AtualizarResturanteUsecase] Usuário com ID {} não tem permissão para ser dono de restaurante", restaurante.usuario().id());
@@ -54,12 +54,13 @@ public class AtualizarResturanteUsecase {
                 log.error("[AtualizarResturanteUsecase] Restaurante com nome {} já existe", restaurante.nome());
                 throw new RestauranteJaExistenteException("Restaurante com esse nome já existe");
             }
-            var restauranteAtualizado = restauranteGateway.atualizaRestaurante(restaurante.atualiza(usuarioOp.get(), relogioGateway.registrarTempo()));
+            var restauranteCompleto = restaurante.atualiza(usuarioOp.get(), relogioGateway.registrarTempo());
+            var restauranteAtualizado = restauranteGateway.atualizaRestaurante(restauranteCompleto);
             log.info("[AtualizarResturanteUsecase] Restaurante atualizado com sucesso: {}", restauranteAtualizado);
             return restauranteAtualizado;
         } else {
             log.error("[AtualizarResturanteUsecase] Restaurante com ID {} não encontrado", restaurante.id());
-            throw new RestauranteNotFound("Restaurante não encontrado");
+            throw new RestauranteNotFoundException("Restaurante não encontrado");
         }
     }
 }

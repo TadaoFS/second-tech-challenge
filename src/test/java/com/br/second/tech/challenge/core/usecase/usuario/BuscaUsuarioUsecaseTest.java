@@ -2,7 +2,7 @@ package com.br.second.tech.challenge.core.usecase.usuario;
 
 import com.br.second.tech.challenge.core.domain.Usuario;
 import com.br.second.tech.challenge.core.stub.UsuarioStub;
-import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
+import com.br.second.tech.challenge.core.exception.UsuarioNotFoundException;
 import com.br.second.tech.challenge.core.gateway.UsuarioGateway;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -52,6 +52,6 @@ class BuscaUsuarioUsecaseTest {
         when(usuarioGateway.obterPorId(id))
                 .thenReturn(Optional.empty());
 
-        assertThrows(UsuarioNotFound.class, () -> buscaUsuarioUsecase.executar(id));
+        assertThrows(UsuarioNotFoundException.class, () -> buscaUsuarioUsecase.executar(id));
     }
 }

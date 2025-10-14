@@ -12,4 +12,5 @@ public interface UsuarioGateway {
     void removeUsuario(Long idUsuario);
     void alterarSenha(Long idUsuario, String novaSenha);
     Optional<Usuario> obterPorLoginOuEmail(String login, String email);
+    void alteraTipoUsuario(Usuario usuario);
 }

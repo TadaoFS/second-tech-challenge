@@ -1,6 +1,6 @@
 package com.br.second.tech.challenge.core.usecase.restaurante;
 
-import com.br.second.tech.challenge.core.exception.RestauranteNotFound;
+import com.br.second.tech.challenge.core.exception.RestauranteNotFoundException;
 import com.br.second.tech.challenge.core.gateway.RestauranteGateway;
 import com.br.second.tech.challenge.core.stub.RestauranteStub;
 import org.junit.jupiter.api.DisplayName;
@@ -47,6 +47,6 @@ class BuscaRestauranteUsecaseTest {
         when(restauranteGateway.obterPorId(restauranteId))
                 .thenReturn(Optional.empty());
 
-        assertThrows(RestauranteNotFound.class, () -> buscaRestauranteUsecase.execute(restauranteId));
+        assertThrows(RestauranteNotFoundException.class, () -> buscaRestauranteUsecase.execute(restauranteId));
     }
 }

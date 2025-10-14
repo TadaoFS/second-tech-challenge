@@ -1,7 +1,5 @@
 package com.br.second.tech.challenge.infra.config.spring.security;
 
-import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
-import com.br.second.tech.challenge.core.gateway.UsuarioGateway;
 import com.br.second.tech.challenge.infra.gateway.spring.data.repository.UsuarioRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;

@@ -2,7 +2,7 @@ package com.br.second.tech.challenge.core.usecase.usuario;
 
 import com.br.second.tech.challenge.core.stub.UsuarioStub;
 import com.br.second.tech.challenge.core.exception.AutorizacaoIncorreta;
-import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
+import com.br.second.tech.challenge.core.exception.UsuarioNotFoundException;
 import com.br.second.tech.challenge.core.gateway.EncriptadorGateway;
 import com.br.second.tech.challenge.core.gateway.UsuarioGateway;
 import org.junit.jupiter.api.DisplayName;
@@ -55,7 +55,7 @@ class AlteraSenhaUsuarioUsecaseTest {
         var senhaAntiga = "oldPassword";
         var senhaNova = "newPassword";
 
-        assertThrows(UsuarioNotFound.class, () -> alteraSenhaUsuarioUsecase.executar(login, senhaAntiga, senhaNova));
+        assertThrows(UsuarioNotFoundException.class, () -> alteraSenhaUsuarioUsecase.executar(login, senhaAntiga, senhaNova));
         verify(usuarioGateway, times(0)).alterarSenha(anyLong(), anyString());
     }
 

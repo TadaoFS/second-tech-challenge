@@ -2,7 +2,7 @@ package com.br.second.tech.challenge.core.usecase.usuario;
 
 import com.br.second.tech.challenge.core.domain.Usuario;
 import com.br.second.tech.challenge.core.exception.UsuarioExistenteException;
-import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
+import com.br.second.tech.challenge.core.exception.UsuarioNotFoundException;
 import com.br.second.tech.challenge.core.gateway.RelogioGateway;
 import com.br.second.tech.challenge.core.gateway.UsuarioGateway;
 import lombok.extern.slf4j.Slf4j;
@@ -29,9 +29,10 @@ public class AtualizaUsuarioUsecase {
             throw new UsuarioExistenteException("Usuario com login ou email ja existente");
         }
         if(usuarioOp.isPresent()){
-            return usuarioGateway.atualizaUsuario(usuario.dataAtualizacao(relogioGateway.registrarTempo()));
+            var usuarioAtualizado = usuario.dataAtualizacao(relogioGateway.registrarTempo());
+            return usuarioGateway.atualizaUsuario(usuarioAtualizado);
         }
         log.error("[AtualiaUsuarioUsecase.executar]: idDonoRestaurante {} nao encontrado", usuario.id());
-        throw new UsuarioNotFound("Usuario {id} nao encontrado".replace("{id}", String.valueOf(usuario.id())));
+        throw new UsuarioNotFoundException("Usuario {id} nao encontrado".replace("{id}", String.valueOf(usuario.id())));
     }
 }

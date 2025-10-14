@@ -11,4 +11,6 @@ public interface RestauranteRepository extends CrudRepository<RestauranteEntity,
 
     Optional<RestauranteEntity> findByNome(String nome);
     Optional<RestauranteEntity> findByUsuarioId(Long idUsuario);
+
+    Long id(Long id);
 }

@@ -4,7 +4,7 @@ import com.br.second.tech.challenge.core.domain.Restaurante;
 import com.br.second.tech.challenge.core.enums.TipoUsuario;
 import com.br.second.tech.challenge.core.exception.RestauranteJaExistenteException;
 import com.br.second.tech.challenge.core.exception.UsuarioSemPermissaoException;
-import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
+import com.br.second.tech.challenge.core.exception.UsuarioNotFoundException;
 import com.br.second.tech.challenge.core.gateway.RelogioGateway;
 import com.br.second.tech.challenge.core.gateway.RestauranteGateway;
 import com.br.second.tech.challenge.core.gateway.UsuarioGateway;
@@ -53,7 +53,7 @@ public class CriarResturanteUsecase {
             return restauranteCriado;
         } else {
             log.error("[CriarRestauranteUsecase] Usuário com ID {} não encontrado", restaurante.usuario().id());
-            throw new UsuarioNotFound("Usuário não encontrado");
+            throw new UsuarioNotFoundException("Usuário não encontrado");
         }
     }
 }

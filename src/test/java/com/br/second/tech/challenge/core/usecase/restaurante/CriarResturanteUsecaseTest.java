@@ -1,7 +1,7 @@
 package com.br.second.tech.challenge.core.usecase.restaurante;
 
 import com.br.second.tech.challenge.core.exception.RestauranteJaExistenteException;
-import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
+import com.br.second.tech.challenge.core.exception.UsuarioNotFoundException;
 import com.br.second.tech.challenge.core.exception.UsuarioSemPermissaoException;
 import com.br.second.tech.challenge.core.gateway.RelogioGateway;
 import com.br.second.tech.challenge.core.gateway.RestauranteGateway;
@@ -68,7 +68,7 @@ class CriarResturanteUsecaseTest {
         when(usuarioGateway.obterPorId(donoRestaurante.id()))
                 .thenReturn(Optional.empty());
 
-        assertThrows(UsuarioNotFound.class, () -> criarResturanteUsecase.execute(restauranteRequest));
+        assertThrows(UsuarioNotFoundException.class, () -> criarResturanteUsecase.execute(restauranteRequest));
     }
 
     @Test

@@ -1,7 +1,7 @@
 package com.br.second.tech.challenge.infra.gateway.spring.data;
 
 import com.br.second.tech.challenge.core.domain.Usuario;
-import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
+import com.br.second.tech.challenge.core.exception.UsuarioNotFoundException;
 import com.br.second.tech.challenge.core.gateway.EncriptadorGateway;
 import com.br.second.tech.challenge.core.gateway.UsuarioGateway;
 import com.br.second.tech.challenge.infra.gateway.spring.data.repository.UsuarioRepository;
@@ -34,13 +34,12 @@ public class UsuarioSpringDataGateway implements UsuarioGateway {
             entity.setEmail(usuario.email());
             entity.setLogin(usuario.login());
             entity.setEndereco(EnderecoPresenter.toEntity(usuario.endereco()));
-            entity.setTipoUsuario(usuario.tipoUsuario());
             entity.setDataAtualizacao(usuario.dataAtualizacao());
             var result = repository.save(entity);
             return UsuarioPresenter.toDomain(result);
         }
         log.error("[UsuarioSpringDataGateway.atualizaUsuario] - Usuario {} nao encontrado", usuario.id());
-        throw new UsuarioNotFound("Usuario {id} nao encontrado".replace("{id}", String.valueOf(usuario.id())));
+        throw new UsuarioNotFoundException("Usuario {id} nao encontrado".replace("{id}", String.valueOf(usuario.id())));
     }
 
     @Override
@@ -88,6 +87,17 @@ public class UsuarioSpringDataGateway implements UsuarioGateway {
         log.info("[UsuarioSpringDataGateway.obterPorLoginOuEmail] - Obtendo usuario por login: {} | email: {}", login, email);
         return repository.findByLoginOrEmail(login, email)
                 .map(UsuarioPresenter::toDomain);
+    }
+
+    @Override
+    public void alteraTipoUsuario(Usuario usuario) {
+        var usuarioEntity = repository.findById(usuario.id());
+        usuarioEntity.ifPresent(user ->{
+                    user.setTipoUsuario(usuario.tipoUsuario());
+                    user.setDataAtualizacao(usuario.dataAtualizacao());
+                    repository.save(user);
+        } );
+        log.info("[UsuarioSpringDataGateway.alteraTipoUsuario] - Tipo de usuario alterado com sucesso para o usuario: {}", usuario.id());
     }
 }
 

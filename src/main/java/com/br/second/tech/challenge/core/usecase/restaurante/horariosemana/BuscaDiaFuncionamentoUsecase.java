@@ -1,9 +1,8 @@
 package com.br.second.tech.challenge.core.usecase.restaurante.horariosemana;
 
-import com.br.second.tech.challenge.core.domain.Dia;
+import com.br.second.tech.challenge.core.domain.HorarioUnidade;
 import com.br.second.tech.challenge.core.enums.Dias;
-import com.br.second.tech.challenge.core.exception.DiaNotFound;
-import com.br.second.tech.challenge.core.exception.RestauranteNotFound;
+import com.br.second.tech.challenge.core.exception.RestauranteNotFoundException;
 import com.br.second.tech.challenge.core.gateway.RestauranteGateway;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,7 @@ public class BuscaDiaFuncionamentoUsecase {
         this.restauranteGateway = restauranteGateway;
     }
 
-    public Dia execute(Long idRestaurante, Dias dia) {
+    public HorarioUnidade execute(Long idRestaurante, Dias dia) {
         log.info("[BuscaDiaFuncionamentoUsecase] Iniciando busca do dia {} para o restaurante ID: {}", dia, idRestaurante);
         var restauranteOpt = restauranteGateway.obterPorId(idRestaurante);
         if (restauranteOpt.isPresent()) {
@@ -28,7 +27,7 @@ public class BuscaDiaFuncionamentoUsecase {
             return diaResult;
         } else {
             log.error("[BuscaDiaFuncionamentoUsecase] Restaurante com ID {} não encontrado", idRestaurante);
-            throw new RestauranteNotFound("Restaurante não encontrado");
+            throw new RestauranteNotFoundException("Restaurante não encontrado");
         }
     }
 }

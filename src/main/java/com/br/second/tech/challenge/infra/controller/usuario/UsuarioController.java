@@ -1,6 +1,6 @@
 package com.br.second.tech.challenge.infra.controller.usuario;
 
-import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
+import com.br.second.tech.challenge.core.exception.UsuarioNotFoundException;
 import com.br.second.tech.challenge.core.usecase.usuario.AtualizaUsuarioUsecase;
 import com.br.second.tech.challenge.core.usecase.usuario.BuscaUsuarioUsecase;
 import com.br.second.tech.challenge.core.usecase.usuario.CriaUsuarioUsecase;
@@ -47,7 +47,7 @@ public class UsuarioController {
         return result.map(UsuarioPresenter::toResponse)
                 .orElseThrow(() -> {
                     log.error("[UsuarioController.buscarPorId] - Usuário {} não encontrado", id);
-                    return new UsuarioNotFound("Usuário {} não encontrado".replace("{}", id.toString()));
+                    return new UsuarioNotFoundException("Usuário {} não encontrado".replace("{}", id.toString()));
                 });
     }
 

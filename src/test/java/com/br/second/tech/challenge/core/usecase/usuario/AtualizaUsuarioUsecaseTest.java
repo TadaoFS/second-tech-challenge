@@ -3,7 +3,7 @@ package com.br.second.tech.challenge.core.usecase.usuario;
 import com.br.second.tech.challenge.core.gateway.RelogioGateway;
 import com.br.second.tech.challenge.core.stub.UsuarioStub;
 import com.br.second.tech.challenge.core.exception.UsuarioExistenteException;
-import com.br.second.tech.challenge.core.exception.UsuarioNotFound;
+import com.br.second.tech.challenge.core.exception.UsuarioNotFoundException;
 import com.br.second.tech.challenge.core.gateway.UsuarioGateway;
 import com.br.second.tech.challenge.infra.config.ClockStub;
 import org.junit.jupiter.api.DisplayName;
@@ -65,7 +65,7 @@ class AtualizaUsuarioUsecaseTest {
         when(usuarioGateway.obterPorId(usuario.id()))
                 .thenReturn(Optional.empty());
 
-        assertThrows(UsuarioNotFound.class, () -> atualizaUsuarioUsecase.executar(usuario));
+        assertThrows(UsuarioNotFoundException.class, () -> atualizaUsuarioUsecase.executar(usuario));
         verify(usuarioGateway, times(0)).atualizaUsuario(usuario);
     }
 

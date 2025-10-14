@@ -40,4 +40,16 @@ public class UsuarioEntity {
         this.tipoUsuario = tipoUsuario;
         this.endereco = entity;
     }
+
+    public UsuarioEntity(Long id, String nome, String email, String login, String senha, TipoUsuario tipoUsuario, EnderecoEntity entity, LocalDateTime localDateTime, LocalDateTime localDateTime1) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.login = login;
+        this.senha = senha;
+        this.tipoUsuario = tipoUsuario;
+        this.endereco = entity;
+        this.dataCriacao = localDateTime;
+        this.dataAtualizacao = localDateTime1;
+    }
 }

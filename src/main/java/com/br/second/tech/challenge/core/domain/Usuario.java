@@ -69,7 +69,7 @@ public record Usuario(
                 this.endereco,
                 TipoUsuario.CLIENTE,
                 tempoCriacao,
-                this.dataAtualizacao
+                tempoCriacao
         );
     }
 

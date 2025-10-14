@@ -7,13 +7,13 @@ import java.time.LocalDateTime;
 @Builder
 public record HorarioFuncionamentoResponse(
         Long id,
-        DiaResponse segunda,
-        DiaResponse terca,
-        DiaResponse quarta,
-        DiaResponse quinta,
-        DiaResponse sexta,
-        DiaResponse sabado,
-        DiaResponse domingo,
+        HorarioUnidadeResponse segunda,
+        HorarioUnidadeResponse terca,
+        HorarioUnidadeResponse quarta,
+        HorarioUnidadeResponse quinta,
+        HorarioUnidadeResponse sexta,
+        HorarioUnidadeResponse sabado,
+        HorarioUnidadeResponse domingo,
         LocalDateTime dataCriacao,
         LocalDateTime dataAtualizacao
 ) {
